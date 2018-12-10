@@ -14,7 +14,7 @@
 
 %%% Journal toggle; only specific options recognised.
 %%% (Only "gigascience" and "general" are implemented now. Support for other journals is planned.)
-\journal{gigascience}
+\journal{general}
 
 \usepackage{graphicx}
 \usepackage{siunitx}
@@ -57,7 +57,7 @@
 \textbf{Background}: 
 Long sequencing reads are information-rich: aiding \textit{de novo} assembly and reference mapping, and consequently have great potential for the study of microbial communities. However, the best approaches for analysis of long-read metagenomic data are unknown. Additionally, rigorous evaluation of bioinformatics tools is hindered by a lack of long-read data from validated samples with known composition.  \\
 \textbf{Methods}: We sequenced two commercially-available mock communities containing ten microbial species (ZymoBIOMICS Microbial Community Standards) with Oxford Nanopore GridION and PromethION. Both communities and the ten individual species isolates were also sequenced with Illumina technology. \\
-\textbf{Data}: We generated 14 and 16 Gbp from GridION flowcells and 146 and 148 Gbp from PromethION flowcells for the even and odd communities respectively. Read length N50 was 5.3 Kbp and 5.2 Kbp for the even and log community, respectively. Basecalls and corresponding signal data are made available (4.2 TB in total).
+\textbf{Data}: We generated 14 and 16 Gbp from GridION flowcells and 146 and 148 Gbp from PromethION flowcells for the even and log communities respectively. Read length N50 was 5.3 Kbp and 5.2 Kbp for the even and log community, respectively. Basecalls and corresponding signal data are made available (4.2 TB in total).
 \\
 \textbf{Results}: Alignment to Illumina-sequenced isolates demonstrated the expected microbial species at anticipated abundances, with the limit of detection for the lowest abundance species below 50 cells (GridION). \textit{De novo} assembly of metagenomes recovered long contiguous sequences without the need for pre-processing techniques such as binning.
 \\
@@ -388,10 +388,16 @@ Python and R scripts used to generate the summary information and analyses are o
 
 \section{Availability of supporting data and materials}
 %``The data set(s) supporting the results of this article is(are) available in the [repository name] repository, [cite unique persistent identifier].''
+This manuscript, and its supporting data are available under a Creative Commons Attribution 4.0 International license.
+
 Unprocessed FASTQ from the Illumina sequencing of the ten isolates are available at the European Nucleotide Archive, via the identifiers listed in Table \ref{tab:strains}, identifiers for the even and log community Illumina sequencing can be found in Table \ref{tab:illumina}.
+
 Both the raw signal, and basecalled FASTQ for the nanopore sequencing experiments are available at the European Nucleotide Archive, via the identifiers listed in Table \ref{tab:datasets}.
-Further updates will be made available on our project website \url{https://lomanlab.github.io/mockcommunity/}.
-This manuscript, and its supporting data are available under a Creative Commons Attribution 4.0 International (CC BY 4.0) license.
+
+The \texttt{SPAdes}-assembled Illumina draft reference, and the collection of nanopore assemblies for each \texttt{wtdbg2} condition are linked to from our GitHub repository (\url{https://github.com/LomanLab/mockcommunity}), along with the \texttt{kraken2} database used for taxonomic classification of the assembled contigs.
+ 
+Further updates (such as updated references, or new assemblies) will be made available through our project website \url{https://lomanlab.github.io/mockcommunity/}.
+
 
 %Supplementary Python and R scripts used to conduct analyses are available in our Github repository: \url{https://github.com/LomanLab/mockcommunity}.
 
