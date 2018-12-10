@@ -14,7 +14,7 @@
 
 %%% Journal toggle; only specific options recognised.
 %%% (Only "gigascience" and "general" are implemented now. Support for other journals is planned.)
-\journal{general}
+\journal{gigascience}
 
 \usepackage{graphicx}
 \usepackage{siunitx}
@@ -56,7 +56,7 @@
 \begin{abstract}
 \textbf{Background}: 
 Long sequencing reads are information-rich: aiding \textit{de novo} assembly and reference mapping, and consequently have great potential for the study of microbial communities. However, the best approaches for analysis of long-read metagenomic data are unknown. Additionally, rigorous evaluation of bioinformatics tools is hindered by a lack of long-read data from validated samples with known composition.  \\
-\textbf{Methods}: We sequenced two commercially-available mock communities containing ten microbial species (ZymoBIOMICS Microbial Community Standards) with Oxford Nanopore GridION and PromethION. Isolates from the same mock community were sequenced individually with Illumina HiSeq. \\
+\textbf{Methods}: We sequenced two commercially-available mock communities containing ten microbial species (ZymoBIOMICS Microbial Community Standards) with Oxford Nanopore GridION and PromethION. Both communities and the ten individual species isolates were also sequenced with Illumina technology. \\
 \textbf{Data}: We generated 14 and 16 Gbp from GridION flowcells and 146 and 148 Gbp from PromethION flowcells for the even and odd communities respectively. Read length N50 was 5.3 Kbp and 5.2 Kbp for the even and log community, respectively. Basecalls and corresponding signal data are made available (4.2 TB in total).
 \\
 \textbf{Results}: Alignment to Illumina-sequenced isolates demonstrated the expected microbial species at anticipated abundances, with the limit of detection for the lowest abundance species below 50 cells (GridION). \textit{De novo} assembly of metagenomes recovered long contiguous sequences without the need for pre-processing techniques such as binning.
@@ -115,7 +115,8 @@ $\times$ \textit{Cryptococcus deneoformans} & & & & & \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}
-\item Table adapted from ZymoBIOMICS™ Microbial Community Standard II (Log Distribution) Instruction Manual v1.1.2 Table 2 and Appendix A
+\item Table adapted from ZymoBIOMICS™ Microbial Community Standard II (Log Distribution) Instruction Manual v1.1.2 Table 2 and Appendix A.
+The \textit{S. enterica} genome is listed at NRRL (\texttt{B-4212}) as Serovar Typhimurium LT2, but our genomic analysis shows it is likely to be Serotype Choleraesuis; indicating possible mis-annotation.
 \end{tablenotes}
 \end{table*}
 
@@ -147,7 +148,7 @@ $\times$ \textit{Cryptococcus deneoformans} & & & & & \\
 
 \subsection{Background Information}
 The ZymoBIOMICS Microbial Community Standards (CS and CSII) are each composed of ten microbial species: eight bacteria and two yeasts (Table \ref{tab:strains}). The organisms in CS (hereafter referred to as `Even') are distributed equally (12\%), with the exception of the two yeasts which are each present at 2\%.
-Cell counts from organisms in CSII (hereafter referred to as `Log') community are distributed on a log scale, with theoretical community composition ranging from 89.1\% (\textit{Listeria monocytogenes}), down to 0.000089\% (\textit{Staphylococcus aureus}).
+Cell counts from organisms in CSII (`Log') community are distributed on a log scale, ranging from 89.1\% (\textit{Listeria monocytogenes}), down to 0.000089\% (\textit{Staphylococcus aureus}).
 %The standards are certified by the manufacturer to contain no more than 0.01\% contaminating cells.
 
 \section{Methods}
@@ -155,7 +156,7 @@ Cell counts from organisms in CSII (hereafter referred to as `Log') community ar
 \subsection{DNA extraction}
 
 DNA was extracted from \SI{75}{\micro\litre} ZymoBIOMICS Microbial Community Standard (Product D6300, Lot ZRC190633) and \SI{375}{\micro\litre} ZymoBIOMICS Microbial Community Standard II (Product D6310, Lot ZRC190842) using the ZymoBIOMICS DNA Miniprep extraction kit according to manufacturer's instructions, with the following modifications to increase fragment length and maintain the expected representation of the Gram-negative species which are already lysed in the DNA/RNA Shield storage solution.
-The standard was spun at 8,000$\times$\textit{g} for 5 minutes before removing the supernatant and retaining. The cell pellet was resuspended in \SI{750}{\micro\litre} lysis buffer and added to the ZR BashingBead lysis tube. Bead-beating was performed on a FastPrep-24 (MP Biomedicals) instrument for 2 cycles of 40 seconds with 5 minutes sitting on ice between cycles. The bead tubes were spun at 10,000$\times$\textit{g} for 1 minute and \SI{450}{\micro\litre} of supernatant was transferred to a Zymo Spin III-F filter before being spun again at 8000$\times$\textit{g} for 1 minute.
+The standard was spun at 8,000$\times$\textit{g} for 5 minutes before removing the supernatant and retaining. The cell pellet was resuspended in \SI{750}{\micro\litre} lysis buffer and added to the ZR BashingBead lysis tube. Bead-beating was performed on a FastPrep-24 (MP Biomedicals) instrument for 2 cycles of 40 seconds at power level 6, with 5 minutes sitting on ice between cycles. The bead tubes were spun at 10,000$\times$\textit{g} for 1 minute and \SI{450}{\micro\litre} of supernatant was transferred to a Zymo Spin III-F filter before being spun again at 8000$\times$\textit{g} for 1 minute.
 \SI{45}{\micro\litre} (Even) and \SI{225}{\micro\litre} (Log) of the supernatant retained earlier was combined with \SI{450}{\micro\litre} filtrate before adding \SI{1485}{\micro\litre} (Even) or \SI{2025}{\micro\litre} (Log) Binding Buffer and mixing before loading onto the column.
 
 \subsection{Nanopore sequencing library preparation}
@@ -174,13 +175,13 @@ Reads were basecalled on-instrument using the GPU basecaller \texttt{Guppy} (Oxf
 
 \subsection{Illumina sequencing}
 
-DNA was extracted from pure cultures of each species using the ZymoBIOMICS DNA Miniprep Kit. Library preparation was performed using the Kapa HyperPlus Kit with \SI{100}{\nano\gram} DNA as input and TruSeq Y-adapters. The purified library derived from each sample was quantified by TapeStation (Agilent 4200) and pooled together in an equimolar fashion. The final library was sequenced on an Illumina HiSeq 1500 instrument using 2$\times$101 bp (paired-end) sequencing. Raw reads were demultiplexed using \texttt{bcl2fastq} v2.17.
-%Shotgun sequencing of the even and log communities were performed with the same protocol.
+DNA was extracted from pure cultures of each species using the ZymoBIOMICS DNA Miniprep Kit. Library preparation was performed using the Kapa HyperPlus Kit with \SI{100}{\nano\gram} DNA as input and TruSeq Y-adapters. The purified library derived from each sample was quantified by TapeStation (Agilent 4200) and pooled together in an equimolar fashion. The pooled library was sequenced on an Illumina HiSeq 1500 instrument using 2$\times$101 bp (paired-end) sequencing, over four lanes. Raw reads were demultiplexed using \texttt{bcl2fastq} v2.17.
+Shotgun sequencing of the even and log communities was performed with the same protocol, with the exception that the log community was sequenced individually on two flowcell lanes, and the even community was instead sequenced on an Illumina MiSeq using 2$\times$151 bp (paired-end) sequencing.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure*}[t!] 
 \centering
-\includegraphics[width=0.995\linewidth]{figures/Figure1.png}
+\includegraphics[width=\linewidth]{figures/Figure1.png}
 \caption{
 Summary plots for the four generated data sets:
 (a) collector's curve showing sequencing yield over time for each of the four sequencing runs,
@@ -190,7 +191,7 @@ Summary plots for the four generated data sets:
 \end{figure*}
 \begin{figure}[b!]
 \centering
-\includegraphics[width=\linewidth]{figures/log-ove.png}
+\includegraphics[width=0.95\linewidth]{figures/log-ove.png}
 \caption{Proportion of sequenced DNA from each of the 10 organisms that was sequenced (x-axis), against the proportion of yield expected given the known community composition (y-axis) of the Zymo CSII (Log) standard.}\label{fig:log-ove}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -198,14 +199,15 @@ Summary plots for the four generated data sets:
 \subsection{Bioinformatics}
 To construct reference genomes, Illumina reads for each of the ten isolates were assembled using \texttt{SPAdes} v3.12.0 \cite{Bankevich2012-iu} with paired-end reads as input, using parameters \texttt{-m 512 -t 12}.
 Scaffolds from \texttt{SPAdes} less than 500 bp length or with less than 10$\times$ coverage were removed. The remaining scaffolds were combined into a single mock community draft assembly for downstream analysis.
+Multilocus sequence typing (MLST) of the scaffolds was conducted with \texttt{mlst} (\url{https://github.com/tseemann/mlst}), using default parameters.
 
 Nanopore reads were aligned to the mock community draft assembly using \texttt{minimap2} \cite{li2018minimap2} v2.14-r883 with parameters \texttt{-ax map-ont -t 12} and converted to a sorted BAM file using \texttt{samtools} \cite{li2009sequence}.
 To reduce erroneous mappings, alignment BAM files were filtered using a script \texttt{bamstats.py} according to the following criteria; reference mapping length $\geq$500 bp, map quality (MAPQ) > 0, there are no supplementary alignments for this read and read is not a secondary alignment.
-Coverage statistics were generated using the \texttt{summariseStats.R} Rscript. 
+Per-species coverage summary statistics were generated using the \texttt{summariseStats.R} Rscript. 
 
 
 Read accuracy was determined by calculating \texttt{BLAST} identity from the filtered alignments (as per \url{http://lh3.github.io/2018/11/25/on-the-definition-of-sequence-identity}), calculated as $(L-NM)/L$ using the \texttt{minimap2} number of mismatches (\texttt{NM}) SAM tag and the sum of match, insertion and deletion CIGAR operations (\texttt{L}). 
-\vfill\null
+
 
 \begin{table*}[t!]
 \caption{Read alignment statistics for even samples, showing absolute measurements and proportion of sequencing yield and the estimated genome coverage obtained for each organism in the mock community.}\label{tab:mappings-even}
@@ -257,26 +259,50 @@ Read accuracy was determined by calculating \texttt{BLAST} identity from the fil
 \end{tablenotes}
 \end{table*}
 
+
+\begin{table}[b!]
+\centering
+\caption{Summary statistics for Illumina sequencing data.}\label{tab:illumina}
+\begin{tabular}{l | S S S  c}
+\toprule
+{} & {Pairs} & {Yield} & {{phred}$\geq$30} & {}\\
+{Dataset} & {(M)} & {(Gbp)} & {(\%)} & {Accession}\\
+\midrule
+\multirow{2}{*}{Isolates} 	        & 13.53      & 2.73 & 87.72\%   & \multirow{2}{*}{see Table \ref{tab:strains}}\\
+ 	                                & {$\pm$} 5.23      & {$\pm$} 1.06 & {$\pm$} 5.43\%   & \\
+\midrule
+{CS (Even)} 	& 8.8     &2.65         & 95.12\%   & \texttt{ERR2984773}\\
+{CSII (Log)} 	& 47.8     &9.66    & 95.71\%   & \texttt{ERR2935805}\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item Illumina sequencing was performed on an Illumina HiSeq 1500, with the exception of the even community which was sequenced on an Illumina MiSeq.
+\end{tablenotes}
+\end{table}
+
 We used \texttt{wtdbg2} v2.2 to assemble nanopore data (\url{https://github.com/ruanjue/wtdbg2}).
-\texttt{wtdbg2} was compiled from source in November 2018 from Git commit \texttt{094f2b3}. For GridION, all nanopore reads were used. For PromethION, we used both the full dataset and a random 25\% subsample. Subsampling was performed using (\texttt{subsample.py}).
+\texttt{wtdbg2} was compiled from source in November 2018 from Git commit \texttt{094f2b3}. For GridION, all nanopore reads were used. For PromethION, we used both the full dataset and a random 25\% subsample. Subsampling was performed using \texttt{subsample.py}.
 
 Assemblies were conducted under a variety of parameter values for homopolymer-compressed k-mer size (\texttt{-p}), minimum graph edge weight support (\texttt{-e}) and read length threshold (\texttt{-L}). Global parameters for all runs (\texttt{-S1 -K10000 --node-max 6000}) were used to turn-off k-mer subsampling (to remove assembly stochasticity) and increase the coverage thresholds applied to k-mers and constructed nodes.
 
-Assembly accuracy was determined by a modified version of \texttt{fastmer.py} (\url{https://github.com/jts/assembly\_accuracy}) which uses \texttt{minimap2} to align nanopore metagenomic contigs against the reference draft assembly.
+Assembled contigs were assigned to taxa with \texttt{kraken2} \cite{Wood2014} (\texttt{-{}-use-names -t12}) using a database containing all of the archaeal, bacterial, fungal, protozoal and viral sequences from \texttt{RefSeq}, and \texttt{UniVec\_Core} (database download links are in our repository).
+The \texttt{kraken2} output was parsed with \texttt{extracken.py}.
+Assembly accuracy was determined by a modified version of \texttt{fastmer.py} (\url{https://github.com/jts/assembly\_accuracy}) which uses \texttt{minimap2} to align contigs against the draft assembly.
 
 \section{Results}
 
 \subsection{Nanopore sequencing metrics}
 
 We generated a total of 324.36 Gbp of sequence from the four nanopore sequencing runs (Table \ref{tab:datasets}, Figure \ref{fig:assemblies}.a).
-PromethION flow cells generated approximately ten-times more sequencing data than the comparative GridION runs and showed equivalent read length N50 and quality scores (Figure \ref{fig:summaries}.b).
+PromethION flowcells generated approximately ten-times more sequencing data than the comparative GridION runs and showed equivalent read length N50 and quality scores (Figure \ref{fig:summaries}.b).
 We observe a difference in sequencing speed between the PromethION (mean 395 bps and 412 bps for even and log) and the GridION (mean speed 341 and 359 bps for even and log) (Figure \ref{fig:summaries}.c).
 
 \subsection{Illumina sequencing metrics}
 %Dataset size for isolates, shotgun metagenomics and range of sizes for isolates, accession numbers.
 
-Illumina datasets for the ten individually sequenced isolates averaged 13.53 million pairs of reads (ranging between 7.1 $-$ 23.2 million), with proportions of reads with a mean \texttt{phred} score $\geq$30 ranging between 75.51\% $-$ 93.09\% (mean 87.72\%).
-ENA accession numbers for the isolates can be found in Table \ref{tab:strains}.
+Illumina datasets for the ten individually sequenced isolates averaged 13.53 million pairs of reads (ranging between 7.1 $-$ 23.2 million), with proportions of reads with a mean \texttt{phred} score $\geq$30 ranging between 75.51\% $-$ 93.09\% (Table \ref{tab:illumina}).
+Illumina sequencing generated 8.8 million pairs of reads (2$\times$151 bp, MiSeq), and 47.8 million pairs of reads (2$\times$101 bp, HiSeq) for the even and log community, respectively (Table \ref{tab:illumina}).
+%ENA accessions for the individual isolates can be found in Table \ref{tab:strains}, accessions for the community shotgun sequencing are in Table \ref{tab:illumina}.
 
 %The shotgun metagenomics sequencing of the even community generated 47.83 million read pairs, with an average \texttt{phred} score of 95.71\%.
 %The shotgun metagenomics experiment can be downloaded from ENA with accession \texttt{ERR2935805}.
@@ -292,7 +318,8 @@ ENA accession numbers for the isolates can be found in Table \ref{tab:strains}.
 
 \subsection{Nanopore mapping statistics}
 
-We identify the presence of all 10 microbial species in the community, for both even and log samples, in expected proportions (Figure \ref{fig:log-ove}). For the even community, the GridION results provide sufficient depth (i.e. significantly >30$\times$ coverage) to potentially assemble all eight of the bacteria. The coverage of the yeast genomes were lower (10 and 17$\times$), potentially sufficient for assembly scaffolding. On the PromethION all genomes had >100$\times$ mean coverage (Tables \ref{tab:mappings-even} and \ref{tab:mappings-odd}).
+We identify the presence of all 10 microbial species in the community, for both even and log samples, in expected proportions (Figure \ref{fig:log-ove}). For the even community, the GridION results provide sufficient depth (i.e. $\gg30\times$ coverage) to potentially assemble all eight of the bacteria. The coverage of the yeast genomes were lower (10 and 17$\times$), potentially sufficient for assembly scaffolding.
+On the PromethION all genomes had >100$\times$ mean coverage (Tables \ref{tab:mappings-even} and \ref{tab:mappings-odd}).
 
 For the log-distributed community, three taxa have sufficient coverage for assembly on GridION, compared with four on PromethION. On PromethION, a further two genomes (\textit{S. enterica} and \textit{E. coli}) have sufficient coverage for assembly scaffolding. We are able to detect \textit{S. aureus}, the lowest abundance organism on both platforms, with 32 reads from PromethION (from 450 cell input) and 7 reads from GridION (from 50 cell input).
 
@@ -322,13 +349,15 @@ For the even community, using \texttt{wtdgb2} with varying parameter choices, we
 
 We found that \texttt{wtdbg2} expects a maximum of 200$\times$ sample coverage, and discards sequence k-mers and \textit{de Bruijn} graph nodes with more than 200$\times$ support. These limits must be lifted by specifying higher \texttt{-K} and \texttt{--node-max} for this dataset. Increasing \texttt{-e} improved contiguity for the even sample, however this resulted in the loss of yeasts from the assembly. Increasing the read length threshold (\texttt{-L}) improved assembly contiguity for all sample and platform combinations, at the cost of genome size. Increasing the homopolymer-compressed k-mer size (\texttt{-p}) from the default of 21 to 23 also appears to improve assembly contiguity. It should be noted that \texttt{wtdbg2} is still under active development, making it difficult to make concrete recommendations for parameters.
 
-The availability of this dataset should help with further improvements to long-read assembly techniques. Though, this study has several shortcomings:
+The availability of this dataset should help with further improvements to long-read assembly techniques.
+
+This study has several shortcomings:
 
 We have not yet explored polishing techniques to improve consensus accuracy of assemblies using nanopore or Illumina data \cite{Rang2018-md}. A new ``flip-flop'' basecaller, \texttt{Flappie} (\url{https://github.com/nanoporetech/flappie}), was recently made available although we have not used it on this dataset.
 
 Although reference genomes for the ten microbial strains contained in the standards are available from Zymo (\url{https://s3.amazonaws.com/zymo-files/BioPool/ZymoBIOMICS.STD.refseq.v2.zip}), they are constructed from a combination of nanopore and Illumina data (not presented here). To avoid a circular comparison, we chose to perform analysis only against Illumina draft genomes. 
 
-Other mock microbial samples are available which we did not test here. The most notable alternative mock community sample is from the Human Microbiome Project (HMP) and consists of 20 microbial samples (available from BEI Resources). Nanopore metagenomic datasets for the HMP mock community have been sequenced as part of other studies, although the datasets are much smaller than the ones presented here \cite{Leggett2017-sx,Bertrand2018-lz,Huson2018-bh}.
+Other mock microbial samples are available which we did not test here. A notable alternative mock community sample is from the Human Microbiome Project (HMP) and consists of 20 microbial samples (available from BEI Resources). This mock community have been sequenced as part of other studies, although the datasets are much smaller than the ones presented here \cite{Leggett2017-sx,Huson2018-bh}. Bertrand et al. presented a synthetic mock community of their own construction to demonstrate hybrid nanopore-Illumina metagenome assemblies \cite{Bertrand2018-lz}.
 
 \subsection{Re-use potential}
 The provision of Illumina reads for each isolate permits a ground-truth to be obtained for the individual species contained in the mock community. This will be useful for training new nanopore basecalling and polishing models, long-read aligners, variant callers, and validating taxonomic assignment and assembly software and pipelines.
@@ -359,14 +388,13 @@ Python and R scripts used to generate the summary information and analyses are o
 
 \section{Availability of supporting data and materials}
 %``The data set(s) supporting the results of this article is(are) available in the [repository name] repository, [cite unique persistent identifier].''
-Unprocessed FASTQ from the Illumina sequencing of the ten isolates are available at the European Nucleotide Archive, via the identifiers listed in Table \ref{tab:strains}. 
-Both the raw signal, and basecalled FASTQ for the Nanopore sequencing experiments are available at the European Nucleotide Archive, via the identifiers listed in Table \ref{tab:datasets}.
+Unprocessed FASTQ from the Illumina sequencing of the ten isolates are available at the European Nucleotide Archive, via the identifiers listed in Table \ref{tab:strains}, identifiers for the even and log community Illumina sequencing can be found in Table \ref{tab:illumina}.
+Both the raw signal, and basecalled FASTQ for the nanopore sequencing experiments are available at the European Nucleotide Archive, via the identifiers listed in Table \ref{tab:datasets}.
 Further updates will be made available on our project website \url{https://lomanlab.github.io/mockcommunity/}.
 This manuscript, and its supporting data are available under a Creative Commons Attribution 4.0 International (CC BY 4.0) license.
 
 %Supplementary Python and R scripts used to conduct analyses are available in our Github repository: \url{https://github.com/LomanLab/mockcommunity}.
 
-\vfill\null
 \section{Declarations}
 
 %\subsection{List of abbreviations}
