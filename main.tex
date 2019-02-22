@@ -14,7 +14,7 @@
 
 %%% Journal toggle; only specific options recognised.
 %%% (Only "gigascience" and "general" are implemented now. Support for other journals is planned.)
-\journal{general}
+\journal{gigascience}
 
 \usepackage{graphicx}
 \usepackage{siunitx}
@@ -57,7 +57,8 @@
 \textbf{Background}: 
 Long sequencing reads are information-rich: aiding \textit{de novo} assembly and reference mapping, and consequently have great potential for the study of microbial communities. However, the best approaches for analysis of long-read metagenomic data are unknown. Additionally, rigorous evaluation of bioinformatics tools is hindered by a lack of long-read data from validated samples with known composition.  \\
 \textbf{Methods}: We sequenced two commercially-available mock communities containing ten microbial species (ZymoBIOMICS Microbial Community Standards) with Oxford Nanopore GridION and PromethION. Both communities and the ten individual species isolates were also sequenced with Illumina technology. \\
-\textbf{Data}: We generated 14 and 16 Gbp from GridION flowcells and 146 and 148 Gbp from PromethION flowcells for the even and log communities respectively. Read length N50 was 5.3 Kbp and 5.2 Kbp for the even and log community, respectively. Basecalls and corresponding signal data are made available (4.2 TB in total).
+\textbf{Data}: We generated 14 and 16 Gbp from two GridION flowcells and 150 and 153 Gbp from two PromethION flowcells for the evenly-distributed and log-distributed communities respectively. Read length N50 ranged between 5.3 Kbp and 5.4 Kbp over the four sequencing runs.
+Basecalls and corresponding signal data are made available (4.2 TB in total).
 \\
 \textbf{Results}: Alignment to Illumina-sequenced isolates demonstrated the expected microbial species at anticipated abundances, with the limit of detection for the lowest abundance species below 50 cells (GridION). \textit{De novo} assembly of metagenomes recovered long contiguous sequences without the need for pre-processing techniques such as binning.
 \\
@@ -88,7 +89,7 @@ Long reads help with alignment-based assignment of taxonomy and function due to 
 Additionally, long reads permit bridging of repetitive sequences (within and between genomes), aiding genome completeness in \textit{de novo} assembly \cite{Bertrand2018-lz}.
 However, these advantages are constrained by high error rate ($\approx$10\%), requiring the use of specific long-read alignment and assembly methods, which are either not specifically designed for metagenomics, or have not been extensively tested on real data \cite{sczyrba2017critical}.
 
-Mock community standards are useful for the development of genomics methods \cite{Mason2017-yj}, and for the validation of existing laboratory, software and bioinformatics approaches. For example, validating the accuracy of a taxonomic identification pipeline is important, because the consequences of erroneous taxonomic identification from a metagenomic analysis may be severe, \textit{e.g.} in public health microbiology (such as in the well-publicised case of anthrax and plague in the New York Subway \cite{Ackelsberg2015-fh}) or missed diagnoses in the clinic. Mock community standards can also be used as positive controls during laboratory work, for example to validate that DNA extraction methods will yield expected representation of a sampled community \cite{Mason2017-yj}. 
+Mock community standards are useful for the development of genomics methods \cite{Mason2017-yj}, and for the validation of existing laboratory, software and bioinformatics approaches. For example, validating the accuracy of a taxonomic identification pipeline is important, because the consequences of erroneous taxonomic identification from a metagenomic analysis may be severe, \textit{e.g.} in public health microbiology \cite{Ackelsberg2015-fh,mcintyre2017comprehensive} or incorrect diagnoses in clinical microbiology diagnostics. Mock community standards can also be used as positive controls during laboratory work, for example to validate that DNA extraction methods will yield expected representation of a sampled community \cite{Mason2017-yj}. 
 
 Here, we present four nanopore sequencing datasets of two microbial community standards, providing a state-of-the-art benchmark to accelerate the development of methods for analysing long-read metagenomics data.
 
@@ -96,27 +97,28 @@ Here, we present four nanopore sequencing datasets of two microbial community st
 \centering
 \caption{Description of the ten organisms comprising the ZymoBIOMICS Mock Community Standards.}
 \label{tab:strains}
-\begin{tabular}{r | l | l | l | l | l | c}
+\begin{tabular}{r | l | l | l | l | l | c | c c }
 \toprule
- & & {Estimated Size} & NRRL & ATCC & Sequence & Illumina \\
- Species & Type & {(Mbp)} & Accession & Accession & Type &  FASTQ \\
+ & & {Est. Size} & NRRL & ATCC & Sequence & Illumina & PacBio RSII & PacBio Sequel\\
+ Species & Type & {(Mbp)} & Accession & Accession & Type &  FASTQ & FASTQ \cite{mcintyre2019single} & FASTQ \cite{mcintyre2019single}\\
 \midrule
-\textit{Bacillus subtilis}          & Gram $+$  & 4.045 & \texttt{B-354}   & \texttt{6633}& \texttt{ST7}   & \texttt{ERR2935851} \\
-\textit{Cryptococcus neoformans}  & \multirow{2}{*}{Yeast} & \multirow{2}{*}{18.9} & \multirow{2}{*}{\texttt{Y-2534}}   & \multirow{2}{*}{$-$} & \multirow{2}{*}{$-$} & \multirow{2}{*}{\texttt{ERR2935856}} \\
+\textit{Bacillus subtilis}          & Gram $+$  & 4.045 & \texttt{B-354}   & \texttt{6633}& \texttt{ST7}   & \texttt{ERR2935851}    & \texttt{SRR7498042}	& \texttt{SRR7415629} \\
+\textit{Cryptococcus neoformans}  & \multirow{2}{*}{Yeast} & \multirow{2}{*}{18.9} & \multirow{2}{*}{\texttt{Y-2534}}   & \multirow{2}{*}{\texttt{32045}} & \multirow{2}{*}{$-$} & \multirow{2}{*}{\texttt{ERR2935856}} & \multirow{2}{*}{$-$} & \multirow{2}{*}{$-$}\\
 $\times$ \textit{Cryptococcus deneoformans} & & & & & \\
-\textit{Enterococcus faecalis}      & Gram $+$ & 2.845 & \texttt{B-537}   & \texttt{7080}& \texttt{ST55}  & \texttt{ERR2935850} \\
-\textit{Escherichia coli}           & Gram $-$ & 4.875 & \texttt{B-1109}   & $-$& \texttt{ST10}  & \texttt{ERR2935852} \\
-\textit{Lactobacillus fermentum}    & Gram $+$ & 1.905 & \texttt{B-1840}   & \texttt{14931}& $-$  & \texttt{ERR2935857} \\
-\textit{Listeria monocytogenes}     & Gram $+$ & 2.992 & \texttt{B-33116}  & \texttt{19117}& \texttt{ST449}  & \texttt{ERR2935854} \\
-\textit{Pseudomonas aeruginosa}     & Gram $-$ & 6.792 & \texttt{B-3509}   & \texttt{15442}& \texttt{ST252}  & \texttt{ERR2935853} \\
-\textit{Saccharomyces cerevisiae}   & Yeast & 12.1 & \texttt{Y-567}    & \texttt{9763}& $-$  & \texttt{ERR2935855} \\
-\textit{Salmonella enterica}        & Gram $-$ & 4.760 & \texttt{B-4212}    & $-$& \texttt{ST139} & \texttt{ERR2935848} \\
-\textit{Staphylococcus aureus}      & Gram $+$ & 2.730 & \texttt{B-41012}  & $-$& \texttt{ST9}  & \texttt{ERR2935849} \\
+\textit{Enterococcus faecalis}      & Gram $+$ & 2.845 & \texttt{B-537}   & \texttt{7080}& \texttt{ST55}  & \texttt{ERR2935850} & \texttt{SRR7415622}	& \texttt{SRR7415630}\\
+\textit{Escherichia coli}           & Gram $-$ & 4.875 & \texttt{B-1109}   & $-$& \texttt{ST10}  & \texttt{ERR2935852} & \texttt{SRR7498041} & $-$\\
+\textit{Lactobacillus fermentum}    & Gram $+$ & 1.905 & \texttt{B-1840}   & \texttt{14931}& $-$  & \texttt{ERR2935857} & $-$ & $-$\\
+\textit{Listeria monocytogenes}     & Gram $+$ & 2.992 & \texttt{B-33116}  & \texttt{19117}& \texttt{ST449}  & \texttt{ERR2935854} & \texttt{SRR7415624}	& \texttt{SRR7415635}\\
+\textit{Pseudomonas aeruginosa}     & Gram $-$ & 6.792 & \texttt{B-3509}   & \texttt{15442}& \texttt{ST252}  & \texttt{ERR2935853} & \texttt{SRR7498043} & $-$\\
+\textit{Saccharomyces cerevisiae}   & Yeast & 12.1 & \texttt{Y-567}    & \texttt{9763}& $-$  & \texttt{ERR2935855} & \texttt{SRR7498048}	& \texttt{SRR7415638}\\
+\textit{Salmonella enterica}        & Gram $-$ & 4.760 & \texttt{B-4212}    & $-$& \texttt{ST139} & \texttt{ERR2935848} & \texttt{SRR7415626} &	\texttt{SRR7415636}\\
+\textit{Staphylococcus aureus}      & Gram $+$ & 2.730 & \texttt{B-41012}  & $-$& \texttt{ST9}  & \texttt{ERR2935849} & \texttt{SRR7415627} & \texttt{SRR7415637}\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}
 \item Table adapted from ZymoBIOMICS™ Microbial Community Standard II (Log Distribution) Instruction Manual v1.1.2 Table 2 and Appendix A.
 The \textit{S. enterica} genome is listed at NRRL (\texttt{B-4212}) as Serovar Typhimurium LT2, but our genomic analysis shows it is likely to be Serotype Choleraesuis; indicating possible mis-annotation.
+%PacBio RSII and Sequel sequencing were conducted as part of another study by McIntyre \textit{et al.} \cite{mcintyre2019single}.
 \end{tablenotes}
 \end{table*}
 
@@ -126,16 +128,16 @@ The \textit{S. enterica} genome is listed at NRRL (\texttt{B-4212}) as Serovar T
 \begin{tabular}{l l | l l | c c S S | S S}
 \toprule
      Signal &    FASTQ   		    &          &			   & {Time} & {Reads} & {N50} & {Quality} & {Yield} & {Q$>$7} \\
-     Accession&Accession & Sequencer & Standard & {(h)} & {(M)} & {(Kbp)} & {(Median Q)} & {(Gbp)} & {(Gbp)} \\
+     Accession&Accession & Sequencer & Standard (Lot) & {(h)} & {(M)} & {(Kbp)} & {(Median Q)} & {(Gbp)} & {(Gbp)} \\
 \midrule
-\texttt{ERR2887847} & \texttt{ERR2906227} & GridION &  Zymo CS Even \texttt{ZRC190633}  & 48 & 3.49	&  5.3 & 9.8	& 14.01 & 12.31 \\
+\texttt{ERR2887847} & \texttt{ERR3152364} & GridION &  Zymo CS Even \texttt{ZRC190633}  & 48 & 3.49	&  5.3 & 10.3	& 14.38 & 12.39 \\
 \midrule
-\texttt{ERR2887850} &\texttt{ERR2906229} & GridION &  Zymo CSII Log \texttt{ZRC190842}  	& 48 & 5.73	&  5.2 & 9.3	& 16.03 & 13.67 \\
+\texttt{ERR2887850} &\texttt{ERR3152366} & GridION &  Zymo CSII Log \texttt{ZRC190842}  	& 48 & 3.67	&  5.4 & 9.8	& 16.51 & 13.97 \\
 \midrule
-\texttt{ERR2887848} & \multirow{2}{*}{\texttt{ERR2906228}}& PromethION& Zymo CS Even \texttt{ZRC190633} & 64 &{\multirow{2}{*}{36.5}} & {\multirow{2}{*}{5.3}} & {\multirow{2}{*}{9.1}} & {\multirow{2}{*}{146.29}} & {\multirow{2}{*}{123.27}}\\
+\texttt{ERR2887848} & \multirow{2}{*}{\texttt{ERR3152365}}& PromethION& Zymo CS Even \texttt{ZRC190633} & 64 &{\multirow{2}{*}{35.7}} & {\multirow{2}{*}{5.4}} & {\multirow{2}{*}{10.5}} & {\multirow{2}{*}{150.88}} & {\multirow{2}{*}{130.32}}\\
 \texttt{ERR2887849} & & PromethION& Zymo CS Even \texttt{ZRC190633} & -- &  &    & &  \\
 \midrule
-\texttt{ERR2887851} & \multirow{2}{*}{\texttt{ERR2906230}} & PromethION& Zymo CSII Log \texttt{ZRC190842} 	&64& {\multirow{2}{*}{35.1}} & {\multirow{2}{*}{5.2}} & {\multirow{2}{*}{9.2}} & {\multirow{2}{*}{148.03}} & {\multirow{2}{*}{126.12}} \\
+\texttt{ERR2887851} & \multirow{2}{*}{\texttt{ERR3152367}} & PromethION& Zymo CSII Log \texttt{ZRC190842} 	&64& {\multirow{2}{*}{34.5}} & {\multirow{2}{*}{5.4}} & {\multirow{2}{*}{10.7}} & {\multirow{2}{*}{153.31}} & {\multirow{2}{*}{133.68}} \\
 \texttt{ERR2887852} && PromethION& Zymo CSII Log \texttt{ZRC190842} 	&--&  &    & & \\
 
 
@@ -156,110 +158,55 @@ Cell counts from organisms in CSII (`Log') community are distributed on a log sc
 \subsection{DNA extraction}
 
 DNA was extracted from \SI{75}{\micro\litre} ZymoBIOMICS Microbial Community Standard (Product D6300, Lot ZRC190633) and \SI{375}{\micro\litre} ZymoBIOMICS Microbial Community Standard II (Product D6310, Lot ZRC190842) using the ZymoBIOMICS DNA Miniprep extraction kit according to manufacturer's instructions, with the following modifications to increase fragment length and maintain the expected representation of the Gram-negative species which are already lysed in the DNA/RNA Shield storage solution.
-The standard was spun at 8,000$\times$\textit{g} for 5 minutes before removing the supernatant and retaining. The cell pellet was resuspended in \SI{750}{\micro\litre} lysis buffer and added to the ZR BashingBead lysis tube. Bead-beating was performed on a FastPrep-24 (MP Biomedicals) instrument for 2 cycles of 40 seconds at power level 6, with 5 minutes sitting on ice between cycles. The bead tubes were spun at 10,000$\times$\textit{g} for 1 minute and \SI{450}{\micro\litre} of supernatant was transferred to a Zymo Spin III-F filter before being spun again at 8000$\times$\textit{g} for 1 minute.
+The standard was centrifuged at 8,000$\times$\textit{g} for 5 minutes before removing the supernatant and retaining. The cell pellet was resuspended in \SI{750}{\micro\litre} lysis buffer and added to the ZR BashingBead lysis tube. Bead-beating was performed on a FastPrep-24 (MP Biomedicals) instrument for 2 cycles of 40 seconds at \SI{6.0}{\metre\per\second}, with 5 minutes sitting on ice between cycles. The bead tubes were centrifuged at 10,000$\times$\textit{g} for 1 minute and \SI{450}{\micro\litre} of supernatant was transferred to a Zymo Spin III-F filter before being centrifuged again at 8000$\times$\textit{g} for 1 minute.
 \SI{45}{\micro\litre} (Even) and \SI{225}{\micro\litre} (Log) of the supernatant retained earlier was combined with \SI{450}{\micro\litre} filtrate before adding \SI{1485}{\micro\litre} (Even) or \SI{2025}{\micro\litre} (Log) Binding Buffer and mixing before loading onto the column.
+Methods are available via \url{dx.doi.org/10.17504/protocols.io.x9tfr6n}.
 
 \subsection{Nanopore sequencing library preparation}
 
 Quantification steps were performed using the dsDNA HS assay for Qubit. 
-DNA was size-selected by cleaning up with 0.45$\times$ volume of Ampure XP (Beckman Coulter) and eluted in \SI{100}{\micro\litre} EB (Qiagen). Libraries were prepared from \SI{1400}{\nano\gram} input DNA using the LSK-109 kit (Oxford Nanopore Technologies) as per manufacturer's protocol, except incubation times for end-repair, dA-tailing and ligation were increased to 30 minutes to improve ligation efficiency. The even and log libraries were split and used on both the GridION and PromethION flowcells.
+DNA was size-selected by cleaning up with 0.45$\times$ volume of Ampure XP (Beckman Coulter) and eluted in \SI{100}{\micro\litre} EB (Qiagen). Libraries were prepared from \SI{1400}{\nano\gram} input DNA using the SQK-LSK109 kit (Oxford Nanopore Technologies) as per manufacturer's protocol, except incubation times for end-repair, dA-tailing and ligation were increased to 30 minutes to improve ligation efficiency. The even and log libraries were split and used on both the GridION and PromethION flowcells.
+
+
 
 \subsection{Sequencing}
 
-Sequencing libraries were quantified and two aliquots of \SI{50}{\nano\gram} and \SI{400}{\nano\gram} were prepared for GridION and PromethION sequencing respectively. The GridION sequencing was performed using a \texttt{FLO-MIN106} (rev.C) flowcell, \texttt{MinKNOW} 1.15.1 and standard 48-hour run script with active channel selection enabled. The PromethION sequencing was performed using a \texttt{FLO-PRO002} flowcell, \texttt{MinKNOW} 1.14.2 and standard 64-hour run script with active channel selection enabled.
+Sequencing libraries were quantified and two aliquots of \SI{50}{\nano\gram} and \SI{400}{\nano\gram} were prepared for GridION and PromethION sequencing respectively. The GridION sequencing was performed using \texttt{FLO-MIN106} (rev.C) flowcells, \texttt{MinKNOW} 1.15.1 and standard 48-hour run script with active channel selection enabled. The PromethION sequencing was performed using \texttt{FLO-PRO002} flowcells, \texttt{MinKNOW} 1.14.2 and standard 64-hour run script with active channel selection enabled.
 
-Refuelling was performed approximately every 24h (GridION, PromethION) by loading \SI{75}{\micro\litre} (GridION) or \SI{150}{\micro\litre} (PromethION) refuelling mix (SQB diluted 1:2 with nuclease-free water). Additionally, after the standard scripts had completed the PromethION was restarted several times to utilise remaining active pores and maximise total yield.
+Refuelling was performed approximately every 24h (GridION, PromethION) by loading \SI{75}{\micro\litre} (GridION) or \SI{150}{\micro\litre} (PromethION) refuelling mix (SQB diluted 1:1 with nuclease-free water). Additionally, after the standard scripts had completed the PromethION was restarted several times to utilise remaining active pores and maximise total yield.
 
 \subsection{Nanopore basecalling}
-Reads were basecalled on-instrument using the GPU basecaller \texttt{Guppy} (Oxford Nanopore Technologies) with the supplied \texttt{dna\_r9.4.1\_450bps\_prom.cfg} configuration (PromethION) and \texttt{dna\_r9.4\_450bps.cfg} (GridION). \texttt{Guppy} version 1.8.3 and 1.8.5 were installed on the GridION and PromethION respectively.
+Reads were basecalled on-instrument using the \texttt{Guppy} v2.2.2 GPU basecaller (Oxford Nanopore Technologies) with the supplied \texttt{dna\_r9.4.1\_450bps\_flipflop\_prom.cfg} configuration (PromethION) and \texttt{dna\_r9.4.1\_450bps\_flipflop.cfg} (GridION).
+
+
+
+
+
+
+
 
 \subsection{Illumina sequencing}
 
-DNA was extracted from pure cultures of each species using the ZymoBIOMICS DNA Miniprep Kit. Library preparation was performed using the Kapa HyperPlus Kit with \SI{100}{\nano\gram} DNA as input and TruSeq Y-adapters. The purified library derived from each sample was quantified by TapeStation (Agilent 4200) and pooled together in an equimolar fashion. The pooled library was sequenced on an Illumina HiSeq 1500 instrument using 2$\times$101 bp (paired-end) sequencing, over four lanes. Raw reads were demultiplexed using \texttt{bcl2fastq} v2.17.
+DNA was extracted from pure cultures of each species using the ZymoBIOMICS DNA Miniprep Kit. Library preparation was performed using the Kapa HyperPlus Kit with \SI{100}{\nano\gram} DNA as input and TruSeq Y-adapters. The purified library derived from each sample was quantified by TapeStation (Agilent 4200) and pooled together in an equimolar fashion. The multiplexed isolates were sequenced on an Illumina HiSeq 1500 instrument using 2$\times$101 bp (paired-end) sequencing, over four lanes. Raw reads were demultiplexed using \texttt{bcl2fastq} v2.17.
 Shotgun sequencing of the even and log communities was performed with the same protocol, with the exception that the log community was sequenced individually on two flowcell lanes, and the even community was instead sequenced on an Illumina MiSeq using 2$\times$151 bp (paired-end) sequencing.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure*}[t!] 
 \centering
-\includegraphics[width=\linewidth]{figures/Figure1.png}
+\includegraphics[width=0.975\linewidth]{figures/Qual.png}
 \caption{
 Summary plots for the four generated data sets:
 (a) collector's curve showing sequencing yield over time for each of the four sequencing runs,
 (b) density plot showing sequence accuracy (\texttt{BLAST}-like identities),
-(c) violin plot showing sequencing speed over time split by sequencing group.
+(c) density plot showing sequencing speed over time by sequencing experiment.
 }\label{fig:summaries}
 \end{figure*}
 \begin{figure}[b!]
 \centering
-\includegraphics[width=0.95\linewidth]{figures/log-ove.png}
-\caption{Proportion of sequenced DNA from each of the 10 organisms that was sequenced (x-axis), against the proportion of yield expected given the known community composition (y-axis) of the Zymo CSII (Log) standard.}\label{fig:log-ove}
+\includegraphics[width=0.905\linewidth]{figures/log-ove.png}
+\caption{Proportion of sequenced bases assigned by \texttt{minimap2} to each of the 10 organisms that were sequenced (x-axis), against the proportion of yield expected given the known composition (y-axis) of the Zymo CSII (Log) standard.}\label{fig:log-ove}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Bioinformatics}
-To construct reference genomes, Illumina reads for each of the ten isolates were assembled using \texttt{SPAdes} v3.12.0 \cite{Bankevich2012-iu} with paired-end reads as input, using parameters \texttt{-m 512 -t 12}.
-Scaffolds from \texttt{SPAdes} less than 500 bp length or with less than 10$\times$ coverage were removed. The remaining scaffolds were combined into a single mock community draft assembly for downstream analysis.
-Multilocus sequence typing (MLST) of the scaffolds was conducted with \texttt{mlst} (\url{https://github.com/tseemann/mlst}), using default parameters.
-
-Nanopore reads were aligned to the mock community draft assembly using \texttt{minimap2} \cite{li2018minimap2} v2.14-r883 with parameters \texttt{-ax map-ont -t 12} and converted to a sorted BAM file using \texttt{samtools} \cite{li2009sequence}.
-To reduce erroneous mappings, alignment BAM files were filtered using a script \texttt{bamstats.py} according to the following criteria; reference mapping length $\geq$500 bp, map quality (MAPQ) > 0, there are no supplementary alignments for this read and read is not a secondary alignment.
-Per-species coverage summary statistics were generated using the \texttt{summariseStats.R} Rscript. 
-
-
-Read accuracy was determined by calculating \texttt{BLAST} identity from the filtered alignments (as per \url{http://lh3.github.io/2018/11/25/on-the-definition-of-sequence-identity}), calculated as $(L-NM)/L$ using the \texttt{minimap2} number of mismatches (\texttt{NM}) SAM tag and the sum of match, insertion and deletion CIGAR operations (\texttt{L}). 
-
-
-\begin{table*}[t!]
-\caption{Read alignment statistics for even samples, showing absolute measurements and proportion of sequencing yield and the estimated genome coverage obtained for each organism in the mock community.}\label{tab:mappings-even}
-\begin{tabularx}{\linewidth}{l c | S S c S | S S c S }
-\toprule
-{} & {} & \multicolumn{4}{c|}{GridION} & \multicolumn{4}{c}{PromethION} \\
-{} & {Expected} & {Yield} & {Measured} & {Aln. N50} & {Coverage} & {Yield} & {Measured} & {Aln. N50} & {Coverage} \\
-{Species} & {Proportion} & {(Gbp)} & {Proportion} & {(Kbp)} & {($\times$)} & {(Gbp)} & {Proportion} & {(Kbp)} & {($\times$)} \\
-\midrule
-\textit{Bacillus subtilis}			&12& 2.09 &19.30     &4.30& 516.41 	& 21.54 &18.98   &4.40&   5325.31	\\
-\textit{Listeria monocytogenes} 	&12& 1.57 &14.53     &4.46& 525.44	& 16.20 &14.28   &4.57&   5414.09	\\
-\textit{Enterococcus faecalis}		&12& 1.32 &12.21     &4.45& 464.33	& 13.66 &12.04   &4.56&   4802.85	\\
-\textit{Staphylococcus aureus}		&12& 1.22 &11.25     &4.46& 445.98	& 12.58 &11.08   &4.57&   4607.07	\\
-\textit{Salmonella enterica}		&12& 1.08 &10.01     &8.56& 227.50	& 11.76 &10.36   &8.94&   2470.85	\\
-\textit{Escherichia coli}			&12& 1.08 &9.95     &8.31& 220.93	& 11.69 &10.30   &8.70&   2397.58	\\
-\textit{Pseudomonas aeruginosa} 	&12& 1.05 &9.73     &9.00& 155.08	& 11.58 &10.20   &9.37&   1704.32	\\
-\textit{Lactobacillus fermentum}	&12& 1.01 &9.30     &3.6& 528.46	& 10.35 &9.12   &3.72&   5433.40	\\
-\textit{Saccharomyces cerevisiae} 	&2& 0.21  &1.92     &4.08& 17.18	& 2.12 	&1.87   &4.17&   174.97	\\
-\textit{Cryptococcus neoformans}	&2& 0.19  &1.79     &4.44& 10.23	& 2.00	&1.76   &4.53&   105.95	\\
-\bottomrule
-\end{tabularx}
-%\begin{tablenotes}
-%\item
-%\end{tablenotes}
-\end{table*}
-\begin{table*}[tb!]
-\centering
-\caption{Read alignment statistics for log samples, describing sequencing yield and estimated genome coverage obtained for each organism in the mock community.}\label{tab:mappings-odd}
-\begin{tabular}{l | S c S | S c S }
-\toprule
-{} & \multicolumn{3}{c|}{GridION} & \multicolumn{3}{c}{PromethION} \\
-{} & {Yield} & {Aln. N50} & {Coverage} & {Yield} & {Aln. N50} & {Coverage} \\
-{Species} & {(Gbp)} & {(Kbp)} & {($\times$)} & {(Gbp)} & {(Kbp)} & {($\times$)} \\
-\midrule
-\textit{Listeria monocytogenes} 	& 11.85     &4.94& 3960.85   &  109.69  &4.97& 36659.72\\
-\textit{Pseudomonas aeruginosa} 	& 1.08      &9.38& 158.83 &  10.06      &9.33& 1481.29\\
-\textit{Bacillus subtilis}			& 0.15      &5.02& 37.89  & 1.44        &5.03& 355.39 \\
-\textit{Saccharomyces cerevisiae} 	& 0.08      &4.76& 6.79   &  0.75       &4.74& 62.19\\
-\textit{Salmonella enterica}		& 0.01      &9.26& 2.15   & 0.10        &9.14& 20.09 \\
-\textit{Escherichia coli}			& 0.01      &8.72& 2.11   & 0.09        &9.17& 19.33 \\
-\textit{Lactobacillus fermentum}	& 4E-4    &3.39& 0.207   & 0.004     &3.35& 2.03  \\
-\textit{Enterococcus faecalis}		& 2E-4    &7.50& 0.086    & 1E-4    &6.81& 0.50 \\
-\textit{Cryptococcus neoformans}	& 6E-5   &4.39& 0.003   &  7E-4    &4.96& 0.036\\
-\textit{Staphylococcus aureus}		& 2E-5   &3.87& 0.006   & 8E-5    &3.03& 0.028 \\
-\bottomrule
-\end{tabular}
-\begin{tablenotes}
-\item Note that expected and measured proportions are illustrated by Figure \ref{fig:log-ove}.
-\end{tablenotes}
-\end{table*}
-
-
 \begin{table}[b!]
 \centering
 \caption{Summary statistics for Illumina sequencing data.}\label{tab:illumina}
@@ -280,99 +227,271 @@ Read accuracy was determined by calculating \texttt{BLAST} identity from the fil
 \end{tablenotes}
 \end{table}
 
-We used \texttt{wtdbg2} v2.2 to assemble nanopore data (\url{https://github.com/ruanjue/wtdbg2}).
-\texttt{wtdbg2} was compiled from source in November 2018 from Git commit \texttt{094f2b3}. For GridION, all nanopore reads were used. For PromethION, we used both the full dataset and a random 25\% subsample. Subsampling was performed using \texttt{subsample.py}.
 
-Assemblies were conducted under a variety of parameter values for homopolymer-compressed k-mer size (\texttt{-p}), minimum graph edge weight support (\texttt{-e}) and read length threshold (\texttt{-L}). Global parameters for all runs (\texttt{-S1 -K10000 --node-max 6000}) were used to turn-off k-mer subsampling (to remove assembly stochasticity) and increase the coverage thresholds applied to k-mers and constructed nodes.
+\section{Bioinformatics Methods}
+
+\subsection{Illumina draft assembly}
+For the purposes of estimating sequencing coverage and contiguity, we constructed a draft assembly from our available Illumina sequencing data.
+Illumina reads for each of the ten isolates were assembled using \texttt{SPAdes} v3.12.0 \cite{Bankevich2012-iu} with paired-end reads as input, using parameters \texttt{-m 512 -t 12}.
+Scaffolds from \texttt{SPAdes} less than 500 bp length or with less than 10$\times$ coverage were removed. The remaining scaffolds were combined into a single mock community draft assembly for downstream analysis.
+Multilocus sequence typing (MLST) of the scaffolds was conducted with \texttt{mlst} (\url{https://github.com/tseemann/mlst}).
+
+\subsection{PacBio draft assembly}
+A recently released orthogonal data set from McIntyre \textit{et al}.\ (2019) includes individual PacBio sequencing of eight of the ten organisms that compose the two Zymo communities \cite{mcintyre2019single}.
+Assemblies for the eight isolates that passed quality control (excluding \textit{L. fermentum} and \textit{C. neoformans}) were generated with \texttt{HGAP v2} \cite{chin2013nonhybrid}.
+Assemblies have been made available by the authors and were downloaded from {\url{https://github.com/al-mcintyre/mCaller_analysis_scripts/tree/master/assemblies}} (\texttt{Git} commit \texttt{dba494d}) for the purposes of assessing metagenomic assembly accuracy for the 7 bacterial species where complete genomes were available.
+
+\subsection{Sequencing coverage estimation}
+Nanopore reads were aligned to the Illumina draft assembly using \texttt{minimap2} \cite{li2018minimap2} v2.14-r883 with parameters \texttt{-ax map-ont -t 12} and converted to a sorted BAM file using \texttt{samtools} \cite{li2009sequence}.
+To reduce erroneous mappings, alignment BAM files were filtered using a script \texttt{bamstats.py} according to the following criteria; reference mapping length $\geq$500 bp, map quality (MAPQ) > 0, there are no supplementary alignments for this read and read is not a secondary alignment.
+Per-species coverage summary statistics were generated using the \texttt{summariseStats.R} Rscript. 
+
+\begin{table*}[t!]
+\caption{Read alignment statistics for even samples, showing absolute measurements and proportion of sequencing yield and the estimated genome coverage obtained for each organism in the mock community.}\label{tab:mappings-even}
+\begin{tabularx}{\linewidth}{l c | S S c S | S S c S }
+\toprule
+{} & {} & \multicolumn{4}{c|}{GridION} & \multicolumn{4}{c}{PromethION} \\
+{} & {Expected} & {Yield} & {Measured} & {Aln. N50} & {Coverage} & {Yield} & {Measured} & {Aln. N50} & {Coverage} \\
+{Species} & {Proportion} & {(Gbp)} & {Proportion} & {(Kbp)} & {($\times$)} & {(Gbp)} & {Proportion} & {(Kbp)} & {($\times$)} \\
+\midrule
+\textit{Bacillus subtilis}			&12& 2.12 &19.32     &4.30& 524.51 	& 21.55 &19.02   &4.40&   5326.44	\\
+\textit{Listeria monocytogenes} 	&12& 1.60 &14.56     &4.47& 534.26	& 16.23 &14.33   &4.58&   5424.46	\\
+\textit{Enterococcus faecalis}		&12& 1.34 &12.24     &4.45& 472.47	& 13.67 &12.07   &4.57&   4805.60	\\
+\textit{Staphylococcus aureus}		&12& 1.24 &11.28     &4.47& 453.84	& 12.59 &11.11   &4.59&   4611.61	\\
+\textit{Salmonella enterica}		&12& 1.10 &9.99     &8.55& 230.51   & 11.69 &10.32   &8.95&   2456.19	\\
+\textit{Escherichia coli}			&12& 1.09 &9.93     &8.31& 223.59	& 11.62 &10.26   &8.71&   2382.59	\\
+\textit{Pseudomonas aeruginosa} 	&12& 1.07 &9.70     &8.98& 156.85	& 11.45 &10.11   &9.38&   1686.34	\\
+\textit{Lactobacillus fermentum}	&12& 1.02 &9.28     &3.62& 534.73	& 10.34 &9.13   &3.73&   5425.69	\\
+\textit{Saccharomyces cerevisiae} 	&2& 0.21  &1.92     &4.09& 17.46	& 2.12 	&1.87   &4.18&   175.23	\\
+\textit{Cryptococcus neoformans}	&2& 0.20  &1.78     &4.45& 10.37	& 2.00	&1.77   &4.54&   105.82	\\
+\bottomrule
+\end{tabularx}
+%\begin{tablenotes}
+%\item
+%\end{tablenotes}
+\end{table*}
+\begin{table*}[tb!]
+\centering
+\caption{Read alignment statistics for log samples, describing sequencing yield and estimated genome coverage obtained for each organism in the mock community.}\label{tab:mappings-odd}
+\begin{tabular}{l | S c S | S c S }
+\toprule
+{} & \multicolumn{3}{c|}{GridION} & \multicolumn{3}{c}{PromethION} \\
+{} & {Yield} & {Aln. N50} & {Coverage} & {Yield} & {Aln. N50} & {Coverage} \\
+{Species} & {(Gbp)} & {(Kbp)} & {($\times$)} & {(Gbp)} & {(Kbp)} & {($\times$)} \\
+\midrule
+\textit{Listeria monocytogenes} 	& 12.10     &4.95& 4043.90   &  110.09  &4.97& 36796.21\\
+\textit{Pseudomonas aeruginosa} 	& 1.10      &9.38& 161.45 &  9.99      &9.33& 1471.41\\
+\textit{Bacillus subtilis}			& 0.16      &5.03& 38.67  & 1.44        &5.04& 356.00 \\
+\textit{Saccharomyces cerevisiae} 	& 0.08      &4.78& 6.93   &  0.75       &4.75& 62.33\\
+\textit{Salmonella enterica}		& 0.01      &9.20& 2.20   & 0.10        &9.17& 20.04 \\
+\textit{Escherichia coli}			& 0.01      &8.65& 2.14   & 0.09        &9.17& 19.24 \\
+\textit{Lactobacillus fermentum}	& 4E-4    &3.40& 0.210   & 0.004     &3.37& 2.03  \\
+\textit{Enterococcus faecalis}		& 2E-4    &7.62& 0.055    & 1E-3    &6.05& 0.34 \\
+\textit{Cryptococcus neoformans}	& 6E-5   &4.41& 0.003   &  7E-4    &4.97& 0.037\\
+\textit{Staphylococcus aureus}		& 1E-5   &7.12& 0.005   & 5E-5    &3.58& 0.020 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item Note that expected and measured proportions are illustrated by Figure \ref{fig:log-ove}.
+\end{tablenotes}
+\end{table*}
+
+\subsection{Nanopore read accuracy}
+Read accuracy was determined by calculating \texttt{BLAST}-like identities from the filtered alignments (as per \url{http://lh3.github.io/2018/11/25/on-the-definition-of-sequence-identity}), calculated as $(L-NM)/L$ using the \texttt{minimap2} number of mismatches (\texttt{NM}) SAM tag and the sum of match, insertion and deletion CIGAR operations (\texttt{L}). 
+
+
+\subsection{Metagenomic assembly and contiguity estimation}
+Metagenomic assemblies were constructed with \texttt{wtdbg2} v2.2 \cite{ruan2019fast} from the nanopore sequencing of the communities.
+\texttt{wtdbg2} was compiled from source via \texttt{Git} commit \texttt{904f2b3}. For GridION, all nanopore reads were used. For PromethION, a 25\% subsample was selected with \texttt{seqtk} (\url{https://github.com/lh3/seqtk}).
+
+Assemblies were conducted under a variety of parameter values for homopolymer-compressed k-mer size (\texttt{-p}), minimum graph edge weight support (\texttt{-e}) and read length threshold (\texttt{-L}). Global parameters for all runs (\texttt{-S1 -K10000 -{}-node-max 6000}) were used to turn-off k-mer subsampling (to remove assembly stochasticity) and increase the coverage thresholds applied to k-mers and constructed nodes.
 
 Assembled contigs were assigned to taxa with \texttt{kraken2} \cite{Wood2014} (\texttt{-{}-use-names -t12}) using a database containing all of the archaeal, bacterial, fungal, protozoal and viral sequences from \texttt{RefSeq}, and \texttt{UniVec\_Core} (database download links are in our repository).
-The \texttt{kraken2} output was parsed with \texttt{extracken.py}.
-Assembly accuracy was determined by a modified version of \texttt{fastmer.py} (\url{https://github.com/jts/assembly\_accuracy}) which uses \texttt{minimap2} to align contigs against the draft assembly.
+The \texttt{kraken2} output was parsed with \texttt{extracken.py} and plotted with \texttt{contiguity.R} to visually assess contiguity.
+Following assignment, contigs can be extracted into separate FASTA with \texttt{extract\_contigs\_with\_kraken.py}.
 
-\section{Results}
+\subsection{Assembly polishing}
+After inspection of the \texttt{contiguity.R} plot, eight high-contiguity assemblies were selected for polishing.
+Polishing consisted of two iterations of \texttt{racon} \cite{vaser2017fast}, followed by \texttt{medaka} (\url{https://github.com/nanoporetech/medaka}) and two iterations of \texttt{pilon} \cite{walker2014pilon}.
+\texttt{racon} v1.3.2 was used to polish contigs with the the nanopore reads.
+\texttt{medaka} v0.5.0 was used to polish the \texttt{racon} polished contigs, with the nanopore reads specifying the \texttt{r941\_flip} model.
+The PromethION assemblies were polished using the same \texttt{seqtk}-derived 25\% subset from which the assemblies were constructed.
+\texttt{pilon} v1.23 was used to polish the \texttt{medaka} polished contigs, with the CS (Even) community Illumina reads.
 
-\subsection{Nanopore sequencing metrics}
-
-We generated a total of 324.36 Gbp of sequence from the four nanopore sequencing runs (Table \ref{tab:datasets}, Figure \ref{fig:assemblies}.a).
-PromethION flowcells generated approximately ten-times more sequencing data than the comparative GridION runs and showed equivalent read length N50 and quality scores (Figure \ref{fig:summaries}.b).
-We observe a difference in sequencing speed between the PromethION (mean 395 bps and 412 bps for even and log) and the GridION (mean speed 341 and 359 bps for even and log) (Figure \ref{fig:summaries}.c).
-
-\subsection{Illumina sequencing metrics}
-%Dataset size for isolates, shotgun metagenomics and range of sizes for isolates, accession numbers.
-
-Illumina datasets for the ten individually sequenced isolates averaged 13.53 million pairs of reads (ranging between 7.1 $-$ 23.2 million), with proportions of reads with a mean \texttt{phred} score $\geq$30 ranging between 75.51\% $-$ 93.09\% (Table \ref{tab:illumina}).
-Illumina sequencing generated 8.8 million pairs of reads (2$\times$151 bp, MiSeq), and 47.8 million pairs of reads (2$\times$101 bp, HiSeq) for the even and log community, respectively (Table \ref{tab:illumina}).
-%ENA accessions for the individual isolates can be found in Table \ref{tab:strains}, accessions for the community shotgun sequencing are in Table \ref{tab:illumina}.
-
-%The shotgun metagenomics sequencing of the even community generated 47.83 million read pairs, with an average \texttt{phred} score of 95.71\%.
-%The shotgun metagenomics experiment can be downloaded from ENA with accession \texttt{ERR2935805}.
+\subsection{Estimation of genome completeness}
+To estimate accuracy of the polished assemblies, contigs were first assigned to taxa and extracted into separate FASTA using \texttt{kraken2} as previously described.
+For the seven bacteria for which corresponding PacBio draft assemblies were available, sequence identity dotplots were generated using a modified version of \texttt{minidot} (\url{https://github.com/SamStudio8/minidot}) which uses \texttt{minimap2} (\texttt{-x asm10 -{}-no-long-join -{}-dual=yes -P}) to align the polished contigs binned by \texttt{kraken2}, to the corresponding PacBio draft.
+Genome completeness was estimated with \texttt{CheckM} v1.0.13 \cite{parks2015checkm} using the \texttt{taxonomy\_wf} subcommand, after each phase of the polishing pipeline.
+\texttt{CheckM} was executed separately for each \texttt{kraken2} bin that had a corresponding PacBio reference, specifying the appropriate species for the bin to \texttt{taxonomy\_wf}.
+We report the \texttt{CheckM} ``Completeness'' score, which estimates completeness by identifying collocated marker gene sets on the assembled contigs as a proportion of the total
+collection of marker gene sets expected for a specific taxon.
 
 
 \begin{figure*}[t!]
 \centering
 \includegraphics[width=\linewidth]{figures/w2.png}
-\caption{Bar plots demonstrating total length and contiguity of genomic assemblies obtained with \texttt{wtdbg2} from each of the long-read nanopore data sets. For each organism in the community (coloured columns), contigs longer than 10 kbp are horizontally stacked along the x-axis. Each row represents a run of \texttt{wtdbg2}, with the parameters for edge support, read length threshold and homopolymer-compressed k-mer size labelled on the left. Assemblies are grouped by the data set on which they were run (row facets). Additionally, assemblies may be compared to the estimated true genome size, and per-isolate Illumina \texttt{SPADES} assembly. Estimated genomes sizes are the same as those found in Table \ref{tab:strains}, however to display approximate chromosomes, the two yeasts were replaced by their corresponding canonical NCBI references for visualisation purposes only. The \textit{C. neoformans} strain used by the Zymo standards is a diploid genetic cross, which may explain the larger assemblies, compared to the represented estimated haploid size.
+\caption{Bar plots demonstrating total length and contiguity of genomic assemblies obtained with \texttt{wtdbg2} from each of the long-read nanopore data sets. For each organism in the community (coloured columns), contigs longer than 10 kbp are horizontally stacked along the x-axis. Each row represents a run of \texttt{wtdbg2}, with the parameters for edge support, read length threshold and homopolymer-compressed k-mer size labelled on the left. Assemblies are grouped by the data set on which they were run (row facets). Additionally, assemblies may be compared to the estimated true genome size, the available McIntyre \textit{et al}.\ PacBio assemblies, and per-isolate Illumina \texttt{SPAdes} assembly. Estimated genomes sizes are the same as those found in Table \ref{tab:strains}, however to display approximate chromosomes, the two yeasts were replaced by their corresponding canonical NCBI references for visualisation purposes only. The \textit{C. neoformans} strain used by the Zymo standards is a diploid genetic cross, which may explain the larger assemblies, compared to the represented estimated haploid size.
 }\label{fig:assemblies}
 \end{figure*}
+
+\section{Results}
+
+\subsection{Nanopore sequencing metrics}
+
+We generated a total of 335.1 Gbp of sequence from the four nanopore sequencing runs (Table \ref{tab:datasets}, Figure \ref{fig:summaries}a).
+PromethION flowcells generated approximately ten-times more sequencing data than the comparative GridION runs and showed equivalent read length N50 and read accuracy (Figure \ref{fig:summaries}b).
+We observe a difference in sequencing speed between the PromethION (mean 419 bps and 437 bps for even and log) and the GridION (mean speed 352 and 372 bps for even and log) (Figure \ref{fig:summaries}c).
+
+\subsection{Illumina sequencing metrics}
+Illumina datasets for the ten individually sequenced isolates averaged 13.53 million pairs of reads (ranging between 7.1 $-$ 23.2 million), with proportions of reads with a mean \texttt{phred} score $\geq$30 ranging between 75.51\% $-$ 93.09\% (Table \ref{tab:illumina}).
+Illumina sequencing generated 8.8 million pairs of reads (2$\times$151 bp, MiSeq), and 47.8 million pairs of reads (2$\times$101 bp, HiSeq) for the even and log community, respectively (Table \ref{tab:illumina}).
+
+
+
+
+
+
+
+
+
+
+
+
+
+\setlength{\tabcolsep}{0.5pt}
+\begin{table*}[t!]
+\caption{Sequence identity dotplots and \texttt{CheckM} genome completeness scores for each of the seven bacteria for which there was a corresponding PacBio assembly from McIntyre \textit{et al}.\ (2019). Four \texttt{wtdbg2} assembly conditions are represented, varying the homopolymer-compressed k-mer parameter `\texttt{p}' and the graph minimum edge weight threshold `\texttt{e}'. The read length threshold `\texttt{L}' was fixed at 5000 bp. The left and right halves of the table correspond to the same assembly condition for the GridION and 25\% PromethION sequencing data, respectively. The L50/L95 refers to the number of assembled contigs required to span at least 50\% and 95\% of the estimated genome size (see Table \ref{tab:strains}).\\An $-$ indicates that the set of assembled contigs assigned to a taxon were not of sufficient total length to cover 95\% of the estimated size. \texttt{CheckM} genome completeness scores are expressed as a percentage and were calculated per-organism at the end of each polishing phase.}
+\label{tab:dotplot}
+\begin{tabular}{ccccccc|cc|ccccccc}
+                   \multicolumn{7}{c}{GridION} & \multicolumn{2}{c}{} & \multicolumn{7}{c}{PromethION} \\
+bs      &       ef      &       ec      &       lm      &       pa      &       se      &       sa      &       \multicolumn{2}{c|}{Assembly}   &       bs      &       ef      &       ec      &       lm      &       pa      &       se      &       sa\\
+\toprule
+\multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{0d0198ab-13a0-4758-8483-2b51d147dbed.ctg.cns.bacillus_subtilis}.png}}       &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{0d0198ab-13a0-4758-8483-2b51d147dbed.ctg.cns.enterococcus_faecalis}.png}}   &     \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{0d0198ab-13a0-4758-8483-2b51d147dbed.ctg.cns.escherichia_coli}.png}} &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{0d0198ab-13a0-4758-8483-2b51d147dbed.ctg.cns.listeria_monocytogenes}.png}}  &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{0d0198ab-13a0-4758-8483-2b51d147dbed.ctg.cns.pseudomonas_aeruginosa}.png}} &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{0d0198ab-13a0-4758-8483-2b51d147dbed.ctg.cns.salmonella_enterica}.png}}     &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{0d0198ab-13a0-4758-8483-2b51d147dbed.ctg.cns.staphylococcus_aureus}.png}}  &       \ \ -p  &       21      &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{58d40d60-8fee-4b2b-96cc-a12beaad77db.ctg.cns.bacillus_subtilis}.png}}      &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{58d40d60-8fee-4b2b-96cc-a12beaad77db.ctg.cns.enterococcus_faecalis}.png}}   &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{58d40d60-8fee-4b2b-96cc-a12beaad77db.ctg.cns.escherichia_coli}.png}}       &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{58d40d60-8fee-4b2b-96cc-a12beaad77db.ctg.cns.listeria_monocytogenes}.png}}  &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{58d40d60-8fee-4b2b-96cc-a12beaad77db.ctg.cns.pseudomonas_aeruginosa}.png}} &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{58d40d60-8fee-4b2b-96cc-a12beaad77db.ctg.cns.salmonella_enterica}.png}}     &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{58d40d60-8fee-4b2b-96cc-a12beaad77db.ctg.cns.staphylococcus_aureus}.png}}\\
+        &               &               &               &               &               &               &       \ \ -e  &       3       &               &               &               &               &               &               &       \\
+        &               &               &               &               &               &               &               &               &               &               &               &               &               &               &       \\
+2 / 5   &       1 / 1   &       5 / 17  &       1 / 3   &       1 / 1   &       6 / 21  &       1 / 1   &       \multicolumn{2}{c|}{L50/L95}    &       2 / 5   &       1 / 2   &       4 / $-$ &       3 / 8   &       2 / 5   &       4 / 15  &       1 / 2\\
+74.27   &       76.10   &       70.14   &       76.11   &       78.64   &       66.78   &       78.48   &       \multicolumn{2}{c|}{Base}       &       70.25   &       72.82   &       62.02   &       69.46   &       78.17   &       65.01   &       74.35\\
+86.65   &       88.08   &       84.21   &       83.41   &       92.96   &       82.74   &       90.27   &       \multicolumn{2}{c|}{+Racon$\times$2}    &       83.20   &       83.93   &       71.02   &       82.33   &       90.38   &       77.68   &       86.97\\
+97.45   &       99.07   &       94.46   &       97.50   &       97.33   &       95.10   &       98.35   &       \multicolumn{2}{c|}{+Medaka}    &       95.83   &       97.74   &       81.65   &       96.70   &       99.14   &       91.48   &       97.69\\
+98.42   &       99.66   &       95.46   &       98.57   &       99.77   &       96.98   &       98.88   &       \multicolumn{2}{c|}{+Pilon$\times$2}    &       98.44   &       99.66   &       83.59   &       98.66   &       99.73   &       95.02   &       98.20\\
+\midrule
+\multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{7cd60d3b-eafb-48d1-9aab-c8701232f2f8.ctg.cns.bacillus_subtilis}.png}}       &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{7cd60d3b-eafb-48d1-9aab-c8701232f2f8.ctg.cns.enterococcus_faecalis}.png}}   &     \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{7cd60d3b-eafb-48d1-9aab-c8701232f2f8.ctg.cns.escherichia_coli}.png}} &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{7cd60d3b-eafb-48d1-9aab-c8701232f2f8.ctg.cns.listeria_monocytogenes}.png}}  &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{7cd60d3b-eafb-48d1-9aab-c8701232f2f8.ctg.cns.pseudomonas_aeruginosa}.png}} &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{7cd60d3b-eafb-48d1-9aab-c8701232f2f8.ctg.cns.salmonella_enterica}.png}}     &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{7cd60d3b-eafb-48d1-9aab-c8701232f2f8.ctg.cns.staphylococcus_aureus}.png}}  &       \ \ -p  &       23      &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{a521bcba-06e5-4e48-b5da-c7808a6588e8.ctg.cns.bacillus_subtilis}.png}}      &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{a521bcba-06e5-4e48-b5da-c7808a6588e8.ctg.cns.enterococcus_faecalis}.png}}   &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{a521bcba-06e5-4e48-b5da-c7808a6588e8.ctg.cns.escherichia_coli}.png}}       &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{a521bcba-06e5-4e48-b5da-c7808a6588e8.ctg.cns.listeria_monocytogenes}.png}}  &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{a521bcba-06e5-4e48-b5da-c7808a6588e8.ctg.cns.pseudomonas_aeruginosa}.png}} &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{a521bcba-06e5-4e48-b5da-c7808a6588e8.ctg.cns.salmonella_enterica}.png}}     &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{a521bcba-06e5-4e48-b5da-c7808a6588e8.ctg.cns.staphylococcus_aureus}.png}}\\
+        &               &               &               &               &               &               &       \ \ -e  &       3       &               &               &               &               &               &               &       \\
+        &               &               &               &               &               &               &               &               &               &               &               &               &               &               &       \\
+2 / 4   &       1 / 1   &       2 / $-$ &       1 / 2   &       1 / 1   &       2 / 4   &       1 / 1   &       \multicolumn{2}{c|}{L50/L95}    &       2 / 3   &       1 / 2   &       2 / $-$ &       1 / 3   &       1 / 1   &       3 / 7   &       1 / 1\\
+73.42   &       75.81   &       67.44   &       74.44   &       81.08   &       70.54   &       78.20   &       \multicolumn{2}{c|}{Base}       &       68.20   &       71.32   &       59.15   &       70.02   &       79.85   &       65.62   &       74.04\\
+84.81   &       87.30   &       79.83   &       84.57   &       92.53   &       85.83   &       88.64   &       \multicolumn{2}{c|}{+Racon$\times$2}    &       83.23   &       83.36   &       67.16   &       82.42   &       87.72   &       77.46   &       84.17\\
+96.60   &       98.80   &       89.41   &       98.06   &       98.04   &       97.46   &       98.23   &       \multicolumn{2}{c|}{+Medaka}    &       95.98   &       97.71   &       79.47   &       97.42   &       99.03   &       94.14   &       97.90\\
+97.83   &       99.66   &       90.36   &       99.15   &       99.82   &       98.67   &       98.88   &       \multicolumn{2}{c|}{+Pilon$\times$2}    &       98.34   &       99.66   &       81.65   &       99.27   &       99.77   &       98.18   &       98.88\\
+\midrule
+\multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{2c59020c-85f2-4bf3-bfaf-314f8fc41cdc.ctg.cns.bacillus_subtilis}.png}}       &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{2c59020c-85f2-4bf3-bfaf-314f8fc41cdc.ctg.cns.enterococcus_faecalis}.png}}   &     \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{2c59020c-85f2-4bf3-bfaf-314f8fc41cdc.ctg.cns.escherichia_coli}.png}} &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{2c59020c-85f2-4bf3-bfaf-314f8fc41cdc.ctg.cns.listeria_monocytogenes}.png}}  &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{2c59020c-85f2-4bf3-bfaf-314f8fc41cdc.ctg.cns.pseudomonas_aeruginosa}.png}} &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{2c59020c-85f2-4bf3-bfaf-314f8fc41cdc.ctg.cns.salmonella_enterica}.png}}     &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{2c59020c-85f2-4bf3-bfaf-314f8fc41cdc.ctg.cns.staphylococcus_aureus}.png}}  &       \ \ -p  &       21      &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{71740786-24eb-4a16-aa27-c9bdf9dce3e2.ctg.cns.bacillus_subtilis}.png}}      &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{71740786-24eb-4a16-aa27-c9bdf9dce3e2.ctg.cns.enterococcus_faecalis}.png}}   &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{71740786-24eb-4a16-aa27-c9bdf9dce3e2.ctg.cns.escherichia_coli}.png}}       &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{71740786-24eb-4a16-aa27-c9bdf9dce3e2.ctg.cns.listeria_monocytogenes}.png}}  &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{71740786-24eb-4a16-aa27-c9bdf9dce3e2.ctg.cns.pseudomonas_aeruginosa}.png}} &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{71740786-24eb-4a16-aa27-c9bdf9dce3e2.ctg.cns.salmonella_enterica}.png}}     &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{71740786-24eb-4a16-aa27-c9bdf9dce3e2.ctg.cns.staphylococcus_aureus}.png}}\\
+        &               &               &               &               &               &               &       \ \ -e  &       10      &               &               &               &               &               &               &       \\
+        &               &               &               &               &               &               &               &               &               &               &               &               &               &               &       \\
+1 / 1   &       1 / 2   &       3 / 8   &       1 / $-$ &       1 / 1   &       2 / 7   &       1 / 1   &       \multicolumn{2}{c|}{L50/L95}    &       2 / 5   &       2 / 4   &       3 / 14  &       2 / 7   &       1 / 2   &       3 / 10  &       1 / 2\\
+74.29   &       76.07   &       72.21   &       57.20   &       79.64   &       68.99   &       78.28   &       \multicolumn{2}{c|}{Base}       &       70.82   &       72.29   &       67.56   &       71.91   &       79.04   &       66.33   &       74.20\\
+85.36   &       86.11   &       84.53   &       62.94   &       92.28   &       84.46   &       90.46   &       \multicolumn{2}{c|}{+Racon$\times$2}    &       83.88   &       85.62   &       77.20   &       84.26   &       90.35   &       79.43   &       88.35\\
+97.14   &       99.11   &       95.95   &       71.21   &       98.06   &       96.57   &       98.55   &       \multicolumn{2}{c|}{+Medaka}    &       96.87   &       97.57   &       90.88   &       97.43   &       98.92   &       95.51   &       98.01\\
+98.27   &       99.66   &       97.17   &       72.24   &       99.53   &       98.34   &       98.78   &       \multicolumn{2}{c|}{+Pilon$\times$2}    &       98.43   &       99.66   &       92.58   &       99.15   &       99.72   &       97.85   &       98.86\\
+\midrule
+\multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{c8e73aed-b0cb-40dc-b9ff-654a6b7c7805.ctg.cns.bacillus_subtilis}.png}}       &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{c8e73aed-b0cb-40dc-b9ff-654a6b7c7805.ctg.cns.enterococcus_faecalis}.png}}   &     \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{c8e73aed-b0cb-40dc-b9ff-654a6b7c7805.ctg.cns.escherichia_coli}.png}} &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{c8e73aed-b0cb-40dc-b9ff-654a6b7c7805.ctg.cns.listeria_monocytogenes}.png}}  &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{c8e73aed-b0cb-40dc-b9ff-654a6b7c7805.ctg.cns.pseudomonas_aeruginosa}.png}} &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{c8e73aed-b0cb-40dc-b9ff-654a6b7c7805.ctg.cns.salmonella_enterica}.png}}     &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{c8e73aed-b0cb-40dc-b9ff-654a6b7c7805.ctg.cns.staphylococcus_aureus}.png}}  &       \ \ -p  &       23      &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{98840cca-6e42-4167-8d55-5b92835dbb34.ctg.cns.bacillus_subtilis}.png}}      &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{98840cca-6e42-4167-8d55-5b92835dbb34.ctg.cns.enterococcus_faecalis}.png}}   &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{98840cca-6e42-4167-8d55-5b92835dbb34.ctg.cns.escherichia_coli}.png}}       &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{98840cca-6e42-4167-8d55-5b92835dbb34.ctg.cns.listeria_monocytogenes}.png}}  &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{98840cca-6e42-4167-8d55-5b92835dbb34.ctg.cns.pseudomonas_aeruginosa}.png}} &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{98840cca-6e42-4167-8d55-5b92835dbb34.ctg.cns.salmonella_enterica}.png}}     &       \multirow{3}{*}[0.05cm]{\includegraphics[width=1.1cm]{figures/minidotplots/{98840cca-6e42-4167-8d55-5b92835dbb34.ctg.cns.staphylococcus_aureus}.png}}\\
+        &               &               &               &               &               &               &       \ \ -e  &       10      &               &               &               &               &               &               &       \\
+        &               &               &               &               &               &               &               &               &               &               &               &               &               &               &       \\
+2 / 3   &       1 / 1   &       2 / 3   &       1 / 4   &       1 / 2   &       2 / $-$ &       1 / 3   &       \multicolumn{2}{c|}{L50/L95}    &       1 / 3   &       2 / 4   &       1 / 4   &       1 / 4   &       1 / 1   &       1 / 4   &       2 / 3\\
+73.71   &       77.52   &       73.73   &       75.42   &       82.06   &       60.74   &       79.24   &       \multicolumn{2}{c|}{Base}       &       69.27   &       71.85   &       70.35   &       71.17   &       80.41   &       67.06   &       74.98\\
+86.42   &       88.31   &       84.69   &       85.14   &       92.81   &       71.29   &       87.81   &       \multicolumn{2}{c|}{+Racon$\times$2}    &       81.55   &       84.89   &       82.92   &       83.81   &       89.17   &       80.33   &       88.61\\
+97.16   &       98.83   &       94.26   &       96.86   &       97.86   &       82.42   &       98.45   &       \multicolumn{2}{c|}{+Medaka}    &       96.62   &       98.46   &       95.42   &       96.40   &       98.72   &       96.26   &       97.74\\
+98.44   &       99.66   &       98.13   &       98.69   &       99.83   &       83.58   &       98.86   &       \multicolumn{2}{c|}{+Pilon$\times$2}    &       98.33   &       99.66   &       97.14   &       98.69   &       99.72   &       98.75   &       98.78\\
+\midrule
+bs      &       ef      &       ec      &       lm      &       pa      &       se      &       sa      &       \multicolumn{2}{c|}{}   &       bs      &       ef      &       ec      &       lm      &       pa      &       se      &       sa\\
+\end{tabular}
+\end{table*}
+
+
+
+
+
+
+
 
 
 \subsection{Nanopore mapping statistics}
 
-We identify the presence of all 10 microbial species in the community, for both even and log samples, in expected proportions (Figure \ref{fig:log-ove}). For the even community, the GridION results provide sufficient depth (i.e. $\gg30\times$ coverage) to potentially assemble all eight of the bacteria. The coverage of the yeast genomes were lower (10 and 17$\times$), potentially sufficient for assembly scaffolding.
+We identify the presence of all 10 microbial species in the community, for both even and log samples, in expected proportions (Figure \ref{fig:log-ove}). For the even community, the GridION results provide sufficient depth (i.e. $\gg30\times$ coverage) to potentially assemble all eight of the bacteria. The coverage of the yeast genomes were lower (10$\times$ and 17$\times$), potentially sufficient for assembly scaffolding.
 On the PromethION all genomes had >100$\times$ mean coverage (Tables \ref{tab:mappings-even} and \ref{tab:mappings-odd}).
 
-For the log-distributed community, three taxa have sufficient coverage for assembly on GridION, compared with four on PromethION. On PromethION, a further two genomes (\textit{S. enterica} and \textit{E. coli}) have sufficient coverage for assembly scaffolding. We are able to detect \textit{S. aureus}, the lowest abundance organism on both platforms, with 32 reads from PromethION (from 450 cell input) and 7 reads from GridION (from 50 cell input).
+For the log-distributed community, three taxa have sufficient coverage for assembly on GridION, compared with four on PromethION. On PromethION, a further two genomes (\textit{S. enterica} and \textit{E. coli}) have sufficient coverage for assembly scaffolding. We are able to detect \textit{S. aureus}, the lowest abundance organism on both platforms, with 19 reads from PromethION (from 400 cell input) and 4 reads from GridION (from 50 cell input).
 
-\subsection{Nanopore metagenome assemblies}
+\subsection{Nanopore metagenomic assemblies}
 
-We evaluated nanopore metagenomic assemblies and assessed genome completeness and contiguity for each run with different assembly parameters.
+We assessed the contiguity of our nanopore metagenomic assemblies for each run with different assembly parameters.
 
-For the even community, genomes of the expected size were present for each of the bacterial species contained in small numbers of large contigs (Figure \ref{fig:assemblies}). However, the two yeasts are poorly represented in the assembly, consistent with their low read depth. 
+For the even community, genomes of the expected size were present for each of the bacterial species, contained in small numbers of large contigs (Figure \ref{fig:assemblies}). However, the two yeasts are highly fragmented, consistent with their low read depth. 
 
-\textit{L. monocytogenes} is poorly assembled in the log dataset despite being the most abundant organism, indicating very high sequence coverage may be detrimental to the performance of \texttt{wtdbg2}. We also observe that assembling the entire PromethION dataset resulted in less complete and more fragmented assemblies. This led us to sample randomly the PromethION data to 25\% of the total dataset which improved the assembly results.
+\textit{L. monocytogenes} is poorly assembled in the log dataset despite being the most abundant organism, indicating very high sequence coverage may be detrimental to the performance of \texttt{wtdbg2}. We note that assembling the entire PromethION dataset resulted in less complete and more fragmented assemblies.
+This led us to random subsample the PromethION data to 25\% of the total dataset which improved the assembly results.
 
-After subsampling, assemblies of the even community from the GridION and PromethION are similar. However, the assemblies from PromethION data had better representation of the yeasts (particularly \textit{C. neoformans}), due to the higher coverage depths of these species.
+%\vfill\null
+%\noindent
+After subsampling, assemblies of the even community from the GridION and PromethION are similar. However, the assemblies from PromethION data had better representation of the yeasts in terms of size and contiguity (particularly for \textit{C. neoformans}), likely due to the higher coverage of these species.
 
-Average consensus accuracy was calculated for the entire set of assemblies (n=51). For the even community, accuracy is 99.1\% ($\pm$ 0.17\%) and 99.0\% ($\pm$ 0.24\%) for the GridION and PromethION respectively. For the log community, average accuracy is 99.0\% ($\pm$ 0.27\%) and 99.1\% ($\pm$ 0.20\%) for the GridION and PromethION respectively.
+We also assessed the completeness of polished genomes for a selection of our highly-contiguous metagenomic assemblies.
 
+For the GridION, we observe for at least one of the polished assemblies, four bacterial genomes are reconstructed to at least 95\% of their length (L95) in a single contig. For PromethION, we observe that for seven bacteria, at least half the genome (L50) is reconstructed on a single contig, for at least one assembly condition (Table \ref{tab:dotplot}).
+
+Genome completeness as estimated by \texttt{CheckM} averaged 73.95\% and 70.98\% over the four unpolished assemblies, for the GridION and PromethION respectively.
+We observed each phase of the polishing pipeline improved completeness.
+For the GridION assemblies, completeness was incrementally improved by 11.57 pp, 10.14 pp and 1.25 pp for two iterations of \texttt{racon}, one iteration of \texttt{medaka} and two iterations of short read polishing with \texttt{pilon}, respectively.
+For the PromethION, the three polishing phases incrementally improved assemblies by an average of 11.92 pp, 12.69 pp and 1.77 pp.
+In almost all cases, polishing yields near complete genomes ($\geq$90\%) genomes.
+
+
+
+
+
+
+
+
+%\vfill\null
+%\pagebreak
 \section{Discussion}
 
-There are several noteworthy aspects of this dataset: We generated nearly 300 Gbp of sequence data from the Oxford Nanopore PromethION and 30 gigabases from the Oxford Nanopore GridION, on a well-characterised mock community sample and we have made basecalls and electrical signal data for each of the four runs presented here available: a combined dataset size of over four terabytes. The availability of the raw signal permits future basecalling of the data (an area under rapid development), as well as signal-level polishing and the detection of methylated bases \cite{Simpson2017-gn}.
+There are several noteworthy aspects of this dataset: We generated over 300 Gbp of sequence data from the Oxford Nanopore PromethION and 30 gigabases from the Oxford Nanopore GridION, on a well-characterised mock community sample and we have made basecalls and electrical signal data for each of the four runs presented here available: a combined dataset size of over four terabytes. The availability of the raw signal permits future basecalling of the data (an area under rapid development), as well as signal-level polishing and the detection of methylated bases \cite{Simpson2017-gn}.
 
-Individual sequencing libraries were split between the GridION and PromethION, permitting direct comparisons of the instruments to be made. We observed high concordance between the datasets from each platform. We note the sequencing speed of the PromethION is faster than the GridION, which we attribute to different running temperatures on these instrument (39$^{\circ}$C versus 34$^{\circ}$C, respectively).
+Individual sequencing libraries were split between the GridION and PromethION, permitting direct comparisons of the instruments to be made. We observed high concordance between the datasets from each platform. We note the sequencing speed of the PromethION is faster than the GridION, which we attribute to different running temperatures on these instruments (39$^{\circ}$C versus 34$^{\circ}$C, respectively).
 
-Confident detection of \textit{S. aureus} was demonstrated for the  GridION run to <50-cells using the log community. The PromethION generated around five times the number of \textit{S. aureus} reads as the GridION, but appears less sensitive as we loaded eight times more library. However, it may be possible to reduce the loading input to PromethION flowcells, but we have not attempted this.
+Confident detection of \textit{S. aureus} was demonstrated for the  GridION run to <50-cells using the log community.
+The PromethION generated around five times more \textit{S. aureus} reads as the GridION, however we loaded eight times as much library, making it appear less sensitive.
+It may be possible to reduce the input to PromethION flowcells, but we have not attempted this.
 
-Early results of metagenomics assembly show promise for reconstruction of whole microbial genomes from mixed samples without a binning step. We focused on the recently released \texttt{wtdbg2} software as we found that the established \texttt{minimap2} and \texttt{miniasm} method resulted in excessively large intermediate files (tens of terabases per analysis) which were impractical to store and analyse. 
+Early results of metagenomic assembly show promise for reconstruction of whole microbial genomes from mixed samples without a binning step. We focused on the developing \texttt{wtdbg2} software as the established \texttt{minimap2} and \texttt{miniasm} method resulted in excessively large intermediate files (tens of terabases per analysis) which were impractical to store and analyse. 
 
-For the even community, using \texttt{wtdgb2} with varying parameter choices, we were able to assemble seven of the bacteria into single contigs. However, no single parameter set was found to be optimum for both total genome size and contig length. 
+For the even community, using \texttt{wtdgb2} with varying parameter choices, we were able to assemble four of the bacteria into single contigs. However, no single parameter set was found to be optimum for both total genome size and contig length.
+Increasing \texttt{-e} improved contiguity for the even community, however this resulted in the loss of yeasts from the assembly. Increasing the read length threshold (\texttt{-L}) improved contiguity for all sample and platform combinations, at the cost of genome size. Increasing the homopolymer-compressed k-mer size (\texttt{-p}) from the default of 21 to 23 also appears to improve contiguity. 
 
-We found that \texttt{wtdbg2} expects a maximum of 200$\times$ sample coverage, and discards sequence k-mers and \textit{de Bruijn} graph nodes with more than 200$\times$ support. These limits must be lifted by specifying higher \texttt{-K} and \texttt{--node-max} for this dataset. Increasing \texttt{-e} improved contiguity for the even sample, however this resulted in the loss of yeasts from the assembly. Increasing the read length threshold (\texttt{-L}) improved assembly contiguity for all sample and platform combinations, at the cost of genome size. Increasing the homopolymer-compressed k-mer size (\texttt{-p}) from the default of 21 to 23 also appears to improve assembly contiguity. It should be noted that \texttt{wtdbg2} is still under active development, making it difficult to make concrete recommendations for parameters.
+We found that \texttt{wtdbg2} expects a maximum of 200$\times$ sample coverage, and discards sequence k-mers and \textit{de Bruijn} graph nodes with more than 200$\times$ support. Although these limits can be lifted by specifying higher \texttt{-K} and \texttt{--node-max}, we still observe more fragmented assemblies on the PromethION data (especially for the 100\% PromethION data [not shown]) potentially indicating a need to further tune the algorithm to account for the large differences in coverage between genomes.
+It should be noted that \texttt{wtdbg2} is still under active development, making it difficult to make concrete recommendations for parameters.
+
+We found that any form of polishing improves the completeness of assemblies, likely due to the correction of frameshifts caused by indels.
+Short read polishing with \texttt{pilon} also improves the assemblies, despite low coverage of the Illumina even community data and the results might be expected to improve further with increased coverage.
 
 The availability of this dataset should help with further improvements to long-read assembly techniques.
 
-This study has several shortcomings:
+%This study has several shortcomings:
 
-We have not yet explored polishing techniques to improve consensus accuracy of assemblies using nanopore or Illumina data \cite{Rang2018-md}. A new ``flip-flop'' basecaller, \texttt{Flappie} (\url{https://github.com/nanoporetech/flappie}), was recently made available although we have not used it on this dataset.
+%We have not yet explored polishing techniques to improve consensus accuracy of assemblies using nanopore or Illumina data \cite{Rang2018-md}. A new ``flip-flop'' basecaller, \texttt{Flappie} (\url{https://github.com/nanoporetech/flappie}), was recently made available although we have not used it on this dataset.
 
-Although reference genomes for the ten microbial strains contained in the standards are available from Zymo (\url{https://s3.amazonaws.com/zymo-files/BioPool/ZymoBIOMICS.STD.refseq.v2.zip}), they are constructed from a combination of nanopore and Illumina data (not presented here). To avoid a circular comparison, we chose to perform analysis only against Illumina draft genomes. 
+%Although reference genomes for the ten microbial strains contained in the standards are available from Zymo (\url{https://s3.amazonaws.com/zymo-files/BioPool/ZymoBIOMICS.STD.refseq.v2.zip}), they are constructed from a combination of nanopore and Illumina data (not presented here). To avoid a circular comparison, we chose to perform analysis only against Illumina draft genomes. 
 
-Other mock microbial samples are available which we did not test here. A notable alternative mock community sample is from the Human Microbiome Project (HMP) and consists of 20 microbial samples (available from BEI Resources). This mock community have been sequenced as part of other studies, although the datasets are much smaller than the ones presented here \cite{Leggett2017-sx,Huson2018-bh}. Bertrand et al. presented a synthetic mock community of their own construction to demonstrate hybrid nanopore-Illumina metagenome assemblies \cite{Bertrand2018-lz}.
+Other mock microbial samples are available which we did not test here. A notable alternative mock community sample is from the Human Microbiome Project (HMP) and consists of 20 microbial samples (available from BEI Resources). This mock community have been sequenced as part of other studies, although the datasets are much smaller than the ones presented here \cite{Leggett2017-sx,Huson2018-bh}. Bertrand \textit{et al}.\ presented a synthetic mock community of their own construction to demonstrate hybrid nanopore-Illumina metagenome assemblies \cite{Bertrand2018-lz}.
 
 \subsection{Re-use potential}
 The provision of Illumina reads for each isolate permits a ground-truth to be obtained for the individual species contained in the mock community. This will be useful for training new nanopore basecalling and polishing models, long-read aligners, variant callers, and validating taxonomic assignment and assembly software and pipelines.
 
-%\subsection{Citations and References}
-%Use the \verb|num-refs| document class option for numerical citations, and \verb|alph-refs| option for author-year citations.
-%Use the \verb|\citep| command for parenthetical citations, and \verb|\citet| command for text citations (when using \verb|alpha-refs|).
 
-
-%\emph{GigaScience} encourages and assists with the submission of detailed protocols to the open access repository \href{https://www.protocols.io/}{protocols.io}. Please enter the details into protocols.io, issue a DOI, and cite the protocols.io record from the Methods section.
-
-%Authors benefit greatly by posting their methods in protocols.io as these are in a formatted form, allow inclusion of all the details, are fully searchable unlike supplementary files, and can be updated to new versions as basic methodology changes over time. Doing this saves authors extensive time in the future as the methods do not need to be rewritten in future manuscripts as they need only be cited.
 
 \section{Availability of source code and requirements}
 Python and R scripts used to generate the summary information and analyses are open source and freely available via our repository (\url{https://github.com/LomanLab/mockcommunity}), under the MIT license.
+Our pipeline was orchestrated with \texttt{Snakemake} \cite{koster2012snakemake}, the workflow is available from our repository.
 
 %Lists the following:
 %\begin{itemize}
@@ -392,10 +511,14 @@ This manuscript, and its supporting data are available under a Creative Commons 
 
 Unprocessed FASTQ from the Illumina sequencing of the ten isolates are available at the European Nucleotide Archive, via the identifiers listed in Table \ref{tab:strains}, identifiers for the even and log community Illumina sequencing can be found in Table \ref{tab:illumina}.
 
-Both the raw signal, and basecalled FASTQ for the nanopore sequencing experiments are available at the European Nucleotide Archive, via the identifiers listed in Table \ref{tab:datasets}.
+%McIntyre \textit{et al}.\ PacBio assemblies were downloaded from \url{https://github.com/al-mcintyre/mCaller_analysis_scripts/tree/master/assemblies}. PacBio RSII and Sequel reads from McIntyre \textit{et al}.\  are available from the Sequence Read Archive via the identifiers listed in Table \ref{tab:strains}.
+
+Both the raw signal, and basecalled FASTQ for our nanopore sequencing experiments are available at the European Nucleotide Archive, via the identifiers listed in Table \ref{tab:datasets}.
 
 The \texttt{SPAdes}-assembled Illumina draft reference, and the collection of nanopore assemblies for each \texttt{wtdbg2} condition are linked to from our GitHub repository (\url{https://github.com/LomanLab/mockcommunity}), along with the \texttt{kraken2} database used for taxonomic classification of the assembled contigs.
- 
+
+%Our DNA extraction methods have been posted to protocols.io and can be accessed via \url{http://dx.doi.org/10.17504/protocols.io.x9tfr6n}.
+
 Further updates (such as updated references, or new assemblies) will be made available through our project website \url{https://lomanlab.github.io/mockcommunity/}.
 
 
@@ -433,7 +556,7 @@ Conceptualization: NL, Methodology: NL JQ SN ST, Software: SN NL, Validation: SN
 
 \section{Acknowledgements}
 
-We are grateful to Radoslaw Poplawski (University of Birmingham) for assistance with CLIMB virtual machines and file systems to support this research. We thank Divya Mirrington (Oxford Nanopore Technologies) for advice on PromethION library preparation and sequencing. We thank Hannah McDonnell at Cambridge Biosciences for providing the ZymoBIOMICS Microbial Community Standards. We thank Jared Simpson (Ontario Institute for Cancer Research), Matt Loose (University of Nottingham) and John Tyson (University of British Columbia) for useful discussions and advice.
+We are grateful to Radoslaw Poplawski (University of Birmingham) for assistance with CLIMB virtual machines and file systems to support this research. We thank Divya Mirrington (Oxford Nanopore Technologies) for advice on PromethION library preparation and sequencing. We thank Hannah McDonnell at Cambridge Biosciences for providing the ZymoBIOMICS Microbial Community Standards. We thank Jared Simpson (Ontario Institute for Cancer Research), Matt Loose (University of Nottingham) and John Tyson (University of British Columbia) for useful discussions and advice. We thank Christopher Mason and Alexa McIntyre (Cornell University) for making PacBio data available ahead of publication.
 
 %\section{Authors' information (optional)}
 %You may choose to use this section to include any relevant information about the author(s) that may aid the reader's interpretation of the article, and understand the standpoint of the author(s). This may include details about the authors' qualifications, current positions they hold at institutions or societies, or any other relevant background information. Please refer to authors using their initials. Note this section should not be used to describe any competing interests.
@@ -442,6 +565,9 @@ We are grateful to Radoslaw Poplawski (University of Birmingham) for assistance 
 
 %% Specify your .bib file name here, without the extension
 \bibliography{paper-refs}
+
+
+
 
 
 
